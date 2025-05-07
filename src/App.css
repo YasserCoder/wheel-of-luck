@@ -1,0 +1,59 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
+
+/* Variables */
+:root {
+    --color-body: #202224;
+    --color-violet: #8f00ff;
+    --color-bkg: #ffffff;
+}
+:root[data-theme="dark"] {
+    --color-body: #f5f6fa;
+    --color-bkg: #1a1a1a;
+}
+
+/* CSS reset */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    height: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: normal;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul,
+ol {
+    list-style: none;
+}
+
+button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font: inherit;
+}
+
+/* My Styles */
+body {
+    height: 100%;
+    color: var(--color-body);
+    background-color: var(--color-bkg);
+    font-family: "Lato", Arial, Helvetica, sans-serif;
+}
