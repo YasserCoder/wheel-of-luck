@@ -1,14 +1,8 @@
 import "./App.css";
+import Header from "./components/Header";
 
 function App() {
-    return (
-        <div>
-            <h1>hello world</h1>
-            <h6>goodby world</h6>
-            <p style={{ color: "var(--color-violet)" }}>testing</p>
-            <button>click me</button>
-        </div>
-    );
+    return <Header />;
 }
 
 export default App;
