@@ -1,0 +1,30 @@
+.btn {
+    background-color: var(--color-violet);
+    color: #fff;
+    font-size: 1.75rem;
+    border-radius: 100%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    position: relative;
+}
+.tooltip {
+    position: absolute;
+    background-color: var(--color-violet);
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    white-space: nowrap;
+    left: 110%;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+    text-transform: capitalize;
+}
+.btn:hover .tooltip {
+    opacity: 1;
+}

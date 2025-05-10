@@ -1,17 +1,20 @@
 .header {
-    padding: 1rem 0;
+    padding: 0.75rem 0;
     background-color: var(--color-violet);
 }
 .wrapper {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    gap: 0.5rem;
+}
+.img {
+    width: 68px;
 }
 .title {
     font-family: "Honk", sans-serif;
-    font-size: 3rem;
+    font-size: 3.5rem;
     text-transform: uppercase;
-    color: var(--color-violet);
     padding: 0;
     user-select: none;
 }
