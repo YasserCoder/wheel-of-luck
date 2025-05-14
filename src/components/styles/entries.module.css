@@ -1,0 +1,115 @@
+.operations {
+    display: flex;
+    gap: 10px;
+}
+.opBtn {
+    background-color: #f0f0f0;
+    padding-inline: 12px;
+    padding-block: 4px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    border-radius: 8px;
+    border: 1px solid #b1b1b1;
+    font-size: 14px;
+}
+.opBtn:hover {
+    background-color: #e0e0e0;
+    transition-duration: 300ms;
+}
+.entries {
+    margin-block: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: 280px;
+    flex-grow: 1;
+    overflow-y: auto;
+}
+.entry {
+    background-color: #f9f9f9;
+    margin-inline: 5px;
+    padding-inline: 14px;
+    padding-block: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    border-radius: 8px;
+    border: 1px solid #b1b1b1;
+}
+.entryText {
+    flex-grow: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.entryColor {
+    border-radius: 100%;
+    min-width: 14px;
+    height: 14px;
+}
+.deleteBtn {
+    font-size: 20px;
+    color: red;
+    cursor: pointer;
+    height: 20px;
+}
+.deleteBtn:hover,
+.addBtn:hover {
+    scale: 1.1;
+    transition-duration: 300ms;
+}
+.addEntrySec {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+    /* padding-inline: 5px; */
+}
+.addEntryForm {
+    flex-grow: 1;
+    background-color: #f0f0f0;
+    padding: 6px 14px;
+    border: 1px solid #b1b1b1;
+    border-radius: 8px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: space-between;
+}
+.addEntryInput {
+    outline: none;
+    border: none;
+    background-color: #f0f0f0;
+    font-size: 17px;
+    width: 100%;
+}
+.addBtn {
+    font-size: 25px;
+    color: green;
+    cursor: pointer;
+    height: 25px;
+    cursor: pointer;
+}
+.or {
+    font-size: 20px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+.addImgBtn {
+    cursor: pointer;
+    background-color: var(--color-violet);
+    color: white;
+    width: 42px;
+    height: 37px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    font-size: 20px;
+}
+.addImgBtn:hover {
+    box-shadow: 1px 1px 3px var(--color-violet);
+    transition-duration: 300ms;
+}
