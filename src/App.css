@@ -4,11 +4,19 @@
     --color-body: #202224;
     --color-violet: #8f00ff;
     --color-bkg: #ffffff;
+    --color-input: #f0f0f0;
+    --color-secondary-bkg: #f9f9f9;
+    --color-border: #b1b1b1;
+    --color-hover: #e0e0e0;
 }
 :root[data-theme="dark"] {
     --color-body: #f5f6fa;
-    --color-violet: #9000ffad;
+    --color-violet: #c084fc;
     --color-bkg: #1a1a1a;
+    --color-input: #2e2e2e;
+    --color-secondary-bkg: #222222;
+    --color-border: #888888;
+    --color-hover: #2a2a2a;
 }
 
 /* CSS reset */
@@ -79,5 +87,5 @@ body {
     color: var(--color-body);
     background-color: var(--color-bkg);
     font-family: "Lato", Arial, Helvetica, sans-serif;
-    transition-duration: 300ms;
+    transition: background-color 300ms, color 300ms, border-color 300ms;
 }

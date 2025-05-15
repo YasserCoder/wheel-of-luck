@@ -2,10 +2,11 @@ import { useState } from "react";
 import styles from "./styles/ioSection.module.css";
 import { LuEye, LuEyeOff } from "react-icons/lu";
 import Entries from "./Entries";
+import { useLocalStorageState } from "../hook/useLocalStorageState";
 
 export default function IOSection() {
     const [activeTab, setActiveTab] = useState("entries");
-    const [isOpen, setIsOpen] = useState(true);
+    const [isOpen, setIsOpen] = useLocalStorageState(true, "isVisible");
     return (
         <section className={styles.section}>
             <button className={styles.view} onClick={() => setIsOpen(!isOpen)}>

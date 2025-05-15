@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 
+type LocalStorage = string | boolean | object;
+
 export function useLocalStorageState(
-    initialState: string,
+    initialState: LocalStorage,
     key: string
-): [string | object, (value: string) => void] {
+): [LocalStorage, (value: LocalStorage) => void] {
     const [value, setValue] = useState(function () {
         const storedValue = localStorage.getItem(key);
         return storedValue ? JSON.parse(storedValue) : initialState;
