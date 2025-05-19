@@ -1,8 +1,10 @@
 import { useState } from "react";
 
-import styles from "./styles/entries.module.css";
+import { shuffleArray, sortArray } from "../utils/helpers";
+
 import { FaSortAlphaDown } from "react-icons/fa";
 import { LuImagePlus, LuPlus, LuShuffle, LuX } from "react-icons/lu";
+import styles from "./styles/entries.module.css";
 
 const ENTRIES: (string | File)[] = ["Entry 1", "Entry 2", "Entry 3"];
 export default function Entries() {
@@ -41,11 +43,25 @@ export default function Entries() {
     return (
         <>
             <div className={styles.operations}>
-                <button className={styles.opBtn}>
+                <button
+                    className={styles.opBtn}
+                    onClick={() => {
+                        setEntries((prev) => {
+                            return shuffleArray([...prev]);
+                        });
+                    }}
+                >
                     <LuShuffle />
                     <span>Shuffle</span>
                 </button>
-                <button className={styles.opBtn}>
+                <button
+                    className={styles.opBtn}
+                    onClick={() => {
+                        setEntries((prev) => {
+                            return sortArray([...prev]);
+                        });
+                    }}
+                >
                     <FaSortAlphaDown /> <span>Sort</span>
                 </button>
             </div>
