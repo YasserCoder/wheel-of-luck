@@ -1,0 +1,13 @@
+.results {
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex-grow: 1;
+    overflow-y: auto;
+}
+.winnerTimes {
+    font-size: 15px;
+    order: 1;
+    color: var(--color-border);
+}

@@ -1,0 +1,20 @@
+.operations {
+    display: flex;
+    gap: 10px;
+}
+.opBtn {
+    background-color: var(--color-input);
+    color: var(--color-boy);
+    padding-inline: 12px;
+    padding-block: 4px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    border-radius: 8px;
+    border: 1px solid var(--color-border);
+    font-size: 14px;
+}
+.opBtn:hover {
+    background-color: var(--color-hover);
+    transition-duration: 300ms;
+}

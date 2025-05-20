@@ -1,9 +1,10 @@
 import { useState } from "react";
 
+import OperationBtns from "./OperationBtns";
+import DisplayIO from "./DisplayIO";
 import { shuffleArray, sortArray } from "../utils/helpers";
 
-import { FaSortAlphaDown } from "react-icons/fa";
-import { LuImagePlus, LuPlus, LuShuffle, LuX } from "react-icons/lu";
+import { LuImagePlus, LuPlus, LuShuffle } from "react-icons/lu";
 import styles from "./styles/entries.module.css";
 
 const ENTRIES: (string | File)[] = ["Entry 1", "Entry 2", "Entry 3"];
@@ -42,58 +43,35 @@ export default function Entries() {
     }
     return (
         <>
-            <div className={styles.operations}>
-                <button
-                    className={styles.opBtn}
-                    onClick={() => {
-                        setEntries((prev) => {
-                            return shuffleArray([...prev]);
-                        });
-                    }}
-                >
-                    <LuShuffle />
-                    <span>Shuffle</span>
-                </button>
-                <button
-                    className={styles.opBtn}
-                    onClick={() => {
-                        setEntries((prev) => {
-                            return sortArray([...prev]);
-                        });
-                    }}
-                >
-                    <FaSortAlphaDown /> <span>Sort</span>
-                </button>
-            </div>
+            <OperationBtns
+                handleClick={() => {
+                    setEntries((prev) => {
+                        return shuffleArray([...prev]);
+                    });
+                }}
+                handleSort={() => {
+                    setEntries((prev) => {
+                        return sortArray([...prev]);
+                    });
+                }}
+            >
+                <LuShuffle />
+                <span>Shuffle</span>
+            </OperationBtns>
             <div className={styles.entries}>
                 {entries.map((entry, i) => (
-                    <div key={i} className={styles.entry}>
+                    <DisplayIO
+                        key={i}
+                        io={entry}
+                        handleDelete={() => deleteEntry(i)}
+                    >
                         <span
                             style={{
                                 backgroundColor: "var(--color-violet)",
                             }}
                             className={styles.entryColor}
                         />
-                        <div className={styles.entryText}>
-                            {typeof entry === "string" ? (
-                                <span>{entry}</span>
-                            ) : (
-                                <img
-                                    src={URL.createObjectURL(entry)}
-                                    alt="entry"
-                                    className={styles.entryImg}
-                                />
-                            )}
-                        </div>
-                        <button
-                            onClick={() => {
-                                deleteEntry(i);
-                            }}
-                            className={styles.deleteBtn}
-                        >
-                            <LuX />
-                        </button>
-                    </div>
+                    </DisplayIO>
                 ))}
             </div>
             <div className={styles.addEntrySec}>

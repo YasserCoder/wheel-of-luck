@@ -1,8 +1,11 @@
 import { useState } from "react";
-import styles from "./styles/ioSection.module.css";
-import { LuEye, LuEyeOff } from "react-icons/lu";
+
+import Results from "./Results";
 import Entries from "./Entries";
 import { useLocalStorageState } from "../hook/useLocalStorageState";
+
+import { LuEye, LuEyeOff } from "react-icons/lu";
+import styles from "./styles/ioSection.module.css";
 
 export default function IOSection() {
     const [activeTab, setActiveTab] = useState("entries");
@@ -21,7 +24,7 @@ export default function IOSection() {
                         setActiveTab={setActiveTab}
                     />
                     <div className={styles.box}>
-                        <Entries />
+                        {activeTab === "entries" ? <Entries /> : <Results />}
                     </div>
                 </>
             )}

@@ -1,0 +1,37 @@
+.io {
+    background-color: var(--color-secondary-bkg);
+    margin-inline: 5px;
+    padding-inline: 14px;
+    padding-block: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    border-radius: 8px;
+    border: 1px solid var(--color-border);
+}
+.ioText {
+    flex-grow: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 25px;
+}
+.ioImg {
+    height: 25px;
+    width: fit-content;
+    object-fit: contain;
+    margin: 0;
+    padding: 0;
+}
+.deleteBtn {
+    font-size: 20px;
+    color: red;
+    cursor: pointer;
+    height: 20px;
+    order: 2;
+}
+.deleteBtn:hover {
+    scale: 1.1;
+    transition-duration: 300ms;
+}
