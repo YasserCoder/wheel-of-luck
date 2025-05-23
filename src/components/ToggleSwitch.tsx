@@ -3,12 +3,15 @@ import { useLocalStorageState } from "../hook/useLocalStorageState";
 import styles from "./styles/toggleSwitch.module.css";
 
 export default function ToggleSwitch() {
-    const [value, setValue] = useLocalStorageState("", "appTheme");
+    const [value, setValue] = useLocalStorageState(
+        { appTheme: "", isVisible: true },
+        "preferences"
+    );
     useEffect(() => {
-        if (value === "dark")
+        if (value.appTheme === "dark")
             document.documentElement.setAttribute("data-theme", "dark");
         else document.documentElement.removeAttribute("data-theme");
-    }, [value]);
+    }, [value.appTheme]);
 
     return (
         <label className={styles.toggle} htmlFor={styles.switch}>
@@ -16,9 +19,12 @@ export default function ToggleSwitch() {
                 id={styles.switch}
                 className={styles.input}
                 type="checkbox"
-                checked={value === "dark"}
+                checked={value.appTheme === "dark"}
                 onChange={() => {
-                    setValue(value === "dark" ? "" : "dark");
+                    setValue({
+                        ...value,
+                        appTheme: value.appTheme === "dark" ? "" : "dark",
+                    });
                 }}
             />
             <div className={`${styles.icon} ${styles.moon}`}>

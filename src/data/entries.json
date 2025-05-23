@@ -1,0 +1,16 @@
+[
+    [
+        "chelsea",
+        "real madrid",
+        "barcelona",
+        "arsenal",
+        "manchester city",
+        "manchester united"
+    ],
+    ["luffy", "zoro", "nami", "usopp", "sanji", "robin"],
+    ["spiderman", "batman", "superman", "iron man", "hulk", "thor"],
+    ["apple", "banana", "orange", "grape", "kiwi", "mango"],
+    ["dog", "cat", "fish", "bird", "hamster", "turtle"],
+    ["python", "java", "javascript", "c++", "ruby", "php"],
+    ["soccer", "basketball", "tennis", "baseball", "hockey", "golf"]
+]

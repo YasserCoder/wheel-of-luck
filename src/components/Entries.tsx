@@ -6,11 +6,14 @@ import { shuffleArray, sortArray } from "../utils/helpers";
 
 import { LuImagePlus, LuPlus, LuShuffle } from "react-icons/lu";
 import styles from "./styles/entries.module.css";
+import { useEntries } from "../context/EntriesContext";
 
-const ENTRIES: (string | File)[] = ["Entry 1", "Entry 2", "Entry 3"];
 export default function Entries() {
     const [entry, setEntry] = useState("");
-    const [entries, setEntries] = useState(ENTRIES);
+    const {
+        value: { entries, colors },
+        dispatch,
+    } = useEntries();
 
     function addEntry(
         event:
@@ -27,31 +30,39 @@ export default function Entries() {
                     return;
                 }
                 console.log(file);
-                setEntries((prev) => [...prev, file]);
+                dispatch({
+                    type: "entries/added",
+                    payload: file,
+                });
             }
         } else {
             if (entry === "") return;
             console.log(entry);
-            setEntries((prev) => [...prev, entry]);
+            dispatch({
+                type: "entries/added",
+                payload: entry,
+            });
             setEntry("");
         }
     }
     function deleteEntry(id: number) {
         const newEntries = [...entries];
         newEntries.splice(id, 1);
-        setEntries(newEntries);
+        dispatch({ type: "entries/deleted", payload: id });
     }
     return (
         <>
             <OperationBtns
                 handleClick={() => {
-                    setEntries((prev) => {
-                        return shuffleArray([...prev]);
+                    dispatch({
+                        type: "entries/set",
+                        payload: shuffleArray([...entries]),
                     });
                 }}
                 handleSort={() => {
-                    setEntries((prev) => {
-                        return sortArray([...prev]);
+                    dispatch({
+                        type: "entries/set",
+                        payload: sortArray([...entries]),
                     });
                 }}
             >
@@ -67,7 +78,7 @@ export default function Entries() {
                     >
                         <span
                             style={{
-                                backgroundColor: "var(--color-violet)",
+                                backgroundColor: colors[i % colors.length],
                             }}
                             className={styles.entryColor}
                         />

@@ -9,15 +9,23 @@ import styles from "./styles/ioSection.module.css";
 
 export default function IOSection() {
     const [activeTab, setActiveTab] = useState("entries");
-    const [isOpen, setIsOpen] = useLocalStorageState(true, "isVisible");
+    const [value, setValue] = useLocalStorageState(
+        { appTheme: "", isVisible: true },
+        "preferences"
+    );
     return (
         <section className={styles.section}>
-            <button className={styles.view} onClick={() => setIsOpen(!isOpen)}>
+            <button
+                className={styles.view}
+                onClick={() =>
+                    setValue({ ...value, isVisible: !value.isVisible })
+                }
+            >
                 <span className={styles.eyeIcon}>
-                    {isOpen ? <LuEyeOff /> : <LuEye />}
+                    {value.isVisible ? <LuEyeOff /> : <LuEye />}
                 </span>
             </button>
-            {isOpen && (
+            {value.isVisible && (
                 <>
                     <TabsHeader
                         activeTab={activeTab}
