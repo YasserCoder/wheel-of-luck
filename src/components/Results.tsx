@@ -1,32 +1,26 @@
-import { useState } from "react";
-
 import OperationBtns from "./OperationBtns";
 import DisplayIO from "./DisplayIO";
+import { useResults } from "../context/resultsContext";
+import { sortWinners } from "../utils/helpers";
 
-import { sortArray } from "../utils/helpers";
 import { FaX } from "react-icons/fa6";
 import styles from "./styles/results.module.css";
 
 export default function Results() {
-    const [results, setResults] = useState<string[]>([
-        "result 2",
-        "result 3",
-        "result 4",
-    ]);
+    const { results, dispatch } = useResults();
     function deleteWinner(id: number) {
-        const newResults = [...results];
-        newResults.splice(id, 1);
-        setResults(newResults);
+        dispatch({ type: "results/deleted", payload: id });
     }
     return (
         <>
             <OperationBtns
                 handleClick={() => {
-                    setResults([]);
+                    dispatch({ type: "results/set", payload: [] });
                 }}
                 handleSort={() => {
-                    setResults((prev) => {
-                        return sortArray([...prev]);
+                    dispatch({
+                        type: "results/set",
+                        payload: sortWinners([...results]),
                     });
                 }}
             >
@@ -34,13 +28,15 @@ export default function Results() {
                 <span>Clear the list</span>
             </OperationBtns>
             <div className={styles.results}>
-                {results.map((winner, i) => (
+                {results.map((result, i) => (
                     <DisplayIO
                         key={i}
-                        io={winner}
+                        io={result.winner}
                         handleDelete={() => deleteWinner(i)}
                     >
-                        <span className={styles.winnerTimes}>( 1 )</span>
+                        <span className={styles.winnerTimes}>
+                            ( {result.winNumber} )
+                        </span>
                     </DisplayIO>
                 ))}
             </div>

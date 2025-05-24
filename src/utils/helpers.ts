@@ -41,3 +41,14 @@ export function convertToBase64(file: File) {
         reader.readAsDataURL(file);
     });
 }
+
+export function sortWinners(
+    array: { winner: string; winNumber: number }[]
+): { winner: string; winNumber: number }[] {
+    const normal = array.filter(
+        (item) => !item.winner.startsWith("data:image")
+    );
+    const images = array.filter((item) => item.winner.startsWith("data:image"));
+    normal.sort((a, b) => a.winner.localeCompare(b.winner));
+    return [...normal, ...images];
+}

@@ -1,5 +1,10 @@
 import { describe, it, expect } from "vitest";
-import { sortArray, shuffleArray, convertToBase64 } from "../helpers";
+import {
+    sortArray,
+    shuffleArray,
+    convertToBase64,
+    sortWinners,
+} from "../helpers";
 
 describe("sortArray", () => {
     it("should sort strings alphabetically", () => {
@@ -107,5 +112,72 @@ describe("convertToBase64", () => {
         // The base64 part should match the original base64 data
         const resultBase64 = (result as string).split(",")[1];
         expect(resultBase64).toBe(base64Data);
+    });
+});
+describe("sortWinners", () => {
+    it("should sort winners alphabetically and keep images at the end", () => {
+        const arr = [
+            { winner: "banana", winNumber: 2 },
+            { winner: "data:image/png;base64,AAA", winNumber: 1 },
+            { winner: "apple", winNumber: 3 },
+            { winner: "data:image/jpeg;base64,BBB", winNumber: 4 },
+            { winner: "cherry", winNumber: 5 },
+        ];
+        const sorted = sortWinners(arr);
+        expect(sorted).toEqual([
+            { winner: "apple", winNumber: 3 },
+            { winner: "banana", winNumber: 2 },
+            { winner: "cherry", winNumber: 5 },
+            { winner: "data:image/png;base64,AAA", winNumber: 1 },
+            { winner: "data:image/jpeg;base64,BBB", winNumber: 4 },
+        ]);
+    });
+
+    it("should handle all image winners", () => {
+        const arr = [
+            { winner: "data:image/png;base64,AAA", winNumber: 1 },
+            { winner: "data:image/jpeg;base64,BBB", winNumber: 2 },
+        ];
+        const sorted = sortWinners(arr);
+        expect(sorted).toEqual([
+            { winner: "data:image/png;base64,AAA", winNumber: 1 },
+            { winner: "data:image/jpeg;base64,BBB", winNumber: 2 },
+        ]);
+    });
+
+    it("should handle no image winners", () => {
+        const arr = [
+            { winner: "zebra", winNumber: 1 },
+            { winner: "apple", winNumber: 2 },
+            { winner: "mango", winNumber: 3 },
+        ];
+        const sorted = sortWinners(arr);
+        expect(sorted).toEqual([
+            { winner: "apple", winNumber: 2 },
+            { winner: "mango", winNumber: 3 },
+            { winner: "zebra", winNumber: 1 },
+        ]);
+    });
+
+    it("should handle empty array", () => {
+        const arr: { winner: string; winNumber: number }[] = [];
+        const sorted = sortWinners(arr);
+        expect(sorted).toEqual([]);
+    });
+
+    it("should handle array with one element", () => {
+        const arr = [{ winner: "single", winNumber: 1 }];
+        const sorted = sortWinners(arr);
+        expect(sorted).toEqual([{ winner: "single", winNumber: 1 }]);
+    });
+
+    it("should preserve order of image winners", () => {
+        const arr = [
+            { winner: "data:image/png;base64,AAA", winNumber: 1 },
+            { winner: "data:image/png;base64,BBB", winNumber: 2 },
+            { winner: "data:image/png;base64,CCC", winNumber: 3 },
+        ];
+        const sorted = sortWinners(arr);
+        expect(sorted).toEqual(arr);
     });
 });

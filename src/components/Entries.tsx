@@ -45,8 +45,6 @@ export default function Entries() {
         }
     }
     function deleteEntry(id: number) {
-        const newEntries = [...entries];
-        newEntries.splice(id, 1);
         dispatch({ type: "entries/deleted", payload: id });
     }
     return (
