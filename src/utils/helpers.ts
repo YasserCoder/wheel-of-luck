@@ -1,14 +1,17 @@
-export function sortArray(array: (string | File)[]): (string | File)[] {
-    return [...array].sort((a, b) => {
-        const isAString = typeof a === "string";
-        const isBString = typeof b === "string";
-        if (isAString && isBString) {
-            return (a as string).localeCompare(b as string);
+export function sortArray(array: string[]): string[] {
+    const normalStrings: string[] = [];
+    const imageStrings: string[] = [];
+
+    for (const item of array) {
+        if (item.startsWith("data:image")) {
+            imageStrings.push(item);
+        } else {
+            normalStrings.push(item);
         }
-        if (isAString) return -1; // string before File
-        if (isBString) return 1; // File after string
-        return 0; // both are Files, keep original order
-    });
+    }
+
+    normalStrings.sort((a, b) => a.localeCompare(b));
+    return [...normalStrings, ...imageStrings];
 }
 
 export function shuffleArray<T>(array: T[]): T[] {
@@ -21,4 +24,20 @@ export function shuffleArray<T>(array: T[]): T[] {
         ];
     }
     return shuffledArray;
+}
+
+export function convertToBase64(file: File) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+
+        reader.onload = () => {
+            resolve(reader.result);
+        };
+
+        reader.onerror = (error) => {
+            reject(error);
+        };
+
+        reader.readAsDataURL(file);
+    });
 }

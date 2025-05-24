@@ -6,7 +6,7 @@ export default function DisplayIO({
     handleDelete,
     children,
 }: {
-    io: string | File;
+    io: string;
     handleDelete: () => void;
     children: React.ReactNode;
 }) {
@@ -14,14 +14,10 @@ export default function DisplayIO({
         <div className={styles.io}>
             {children}
             <div className={styles.ioText}>
-                {typeof io === "string" ? (
+                {!io.startsWith("data:image") ? (
                     <span>{io}</span>
                 ) : (
-                    <img
-                        src={URL.createObjectURL(io)}
-                        alt="entry"
-                        className={styles.entryImg}
-                    />
+                    <img src={io} alt="entry" className={styles.ioImg} />
                 )}
             </div>
             <button onClick={handleDelete} className={styles.deleteBtn}>

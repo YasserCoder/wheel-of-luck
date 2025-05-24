@@ -2,11 +2,11 @@ import { useState } from "react";
 
 import OperationBtns from "./OperationBtns";
 import DisplayIO from "./DisplayIO";
-import { shuffleArray, sortArray } from "../utils/helpers";
+import { useEntries } from "../context/entriesContext";
+import { convertToBase64, shuffleArray, sortArray } from "../utils/helpers";
 
 import { LuImagePlus, LuPlus, LuShuffle } from "react-icons/lu";
 import styles from "./styles/entries.module.css";
-import { useEntries } from "../context/EntriesContext";
 
 export default function Entries() {
     const [entry, setEntry] = useState("");
@@ -15,7 +15,7 @@ export default function Entries() {
         dispatch,
     } = useEntries();
 
-    function addEntry(
+    async function addEntry(
         event:
             | React.FormEvent<HTMLFormElement>
             | React.ChangeEvent<HTMLInputElement>
@@ -29,15 +29,14 @@ export default function Entries() {
                 if (!file.type.startsWith("image/")) {
                     return;
                 }
-                console.log(file);
+                const base64 = (await convertToBase64(file)) as string;
                 dispatch({
                     type: "entries/added",
-                    payload: file,
+                    payload: base64,
                 });
             }
         } else {
             if (entry === "") return;
-            console.log(entry);
             dispatch({
                 type: "entries/added",
                 payload: entry,

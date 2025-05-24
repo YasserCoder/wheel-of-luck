@@ -1,11 +1,44 @@
 import { describe, it, expect } from "vitest";
-import { sortArray, shuffleArray } from "../helpers";
+import { sortArray, shuffleArray, convertToBase64 } from "../helpers";
 
 describe("sortArray", () => {
     it("should sort strings alphabetically", () => {
         const arr = ["banana", "apple", "cherry"];
         const sorted = sortArray(arr);
         expect(sorted).toEqual(["apple", "banana", "cherry"]);
+    });
+
+    it("should keep data:image strings at the end in original order", () => {
+        const arr = [
+            "banana",
+            "data:image/png;base64,AAA",
+            "apple",
+            "data:image/jpeg;base64,BBB",
+            "cherry",
+        ];
+        const sorted = sortArray(arr);
+        expect(sorted).toEqual([
+            "apple",
+            "banana",
+            "cherry",
+            "data:image/png;base64,AAA",
+            "data:image/jpeg;base64,BBB",
+        ]);
+    });
+
+    it("should handle all data:image strings", () => {
+        const arr = ["data:image/png;base64,AAA", "data:image/jpeg;base64,BBB"];
+        const sorted = sortArray(arr);
+        expect(sorted).toEqual([
+            "data:image/png;base64,AAA",
+            "data:image/jpeg;base64,BBB",
+        ]);
+    });
+
+    it("should handle no data:image strings", () => {
+        const arr = ["zebra", "apple", "mango"];
+        const sorted = sortArray(arr);
+        expect(sorted).toEqual(["apple", "mango", "zebra"]);
     });
 
     it("should handle empty array", () => {
@@ -15,20 +48,9 @@ describe("sortArray", () => {
     });
 
     it("should handle array with one element", () => {
-        const arr = ["only"];
+        const arr = ["single"];
         const sorted = sortArray(arr);
-        expect(sorted).toEqual(["only"]);
-    });
-
-    it("should sort strings at the top and files at the bottom", () => {
-        const file1 = new File([""], "fileA.png", { type: "image/png" });
-        const file2 = new File([""], "fileB.png", { type: "image/png" });
-        const arr = ["banana", file2, "apple", file1, "cherry"];
-        const sorted = sortArray(arr);
-        // Strings sorted alphabetically, files in original order after
-        expect(sorted).toEqual(["apple", "banana", "cherry", file2, file1]);
-        // expect(sorted[3]).toBe(file2);
-        // expect(sorted[4]).toBe(file1);
+        expect(sorted).toEqual(["single"]);
     });
 });
 
@@ -64,5 +86,26 @@ describe("shuffleArray", () => {
             }
         }
         expect(different).toBe(true);
+    });
+});
+
+describe("convertToBase64", () => {
+    it("should convert an image file to base64", async () => {
+        // Create a small PNG file (1x1 transparent pixel)
+        const base64Data =
+            "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/w8AAgMBAp2FZp8AAAAASUVORK5CYII=";
+        const binary = Uint8Array.from(atob(base64Data), (c) =>
+            c.charCodeAt(0)
+        );
+        const file = new File([binary], "pixel.png", { type: "image/png" });
+        const result = await convertToBase64(file);
+        // The result should be a data URL for image/png
+        expect(typeof result).toBe("string");
+        expect((result as string).startsWith("data:image/png;base64,")).toBe(
+            true
+        );
+        // The base64 part should match the original base64 data
+        const resultBase64 = (result as string).split(",")[1];
+        expect(resultBase64).toBe(base64Data);
     });
 });

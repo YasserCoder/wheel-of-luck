@@ -1,27 +1,24 @@
-import { createContext, useContext, useReducer } from "react";
+import { useReducer } from "react";
 import { useLocalStorageState } from "../hook/useLocalStorageState";
+import { EntriesContext } from "../context/entriesContext";
 import entries from "../data/entries.json";
 import colors from "../data/colors.json";
 
-export type Entry = string | File;
-
 type EntriesState = {
-    entries: Entry[];
+    entries: string[];
     colors: string[];
 };
 
 type Action =
-    | { type: "entries/added"; payload: Entry }
+    | { type: "entries/added"; payload: string }
     | { type: "entries/deleted"; payload: number }
-    | { type: "entries/set"; payload: Entry[] }
+    | { type: "entries/set"; payload: string[] }
     | { type: "colors/set"; payload: string[] };
 
-type EntriesContextType = {
+export type EntriesContextType = {
     value: EntriesState;
     dispatch: React.Dispatch<Action>;
 };
-
-const EntriesContext = createContext<EntriesContextType | undefined>(undefined);
 
 const entriesReducer = (state: EntriesState, action: Action): EntriesState => {
     switch (action.type) {
@@ -50,7 +47,7 @@ export const EntriesProvider = ({
     const [storedEntries, setStoredEntries] =
         useLocalStorageState<EntriesState>(
             { entries: entries[0], colors: colors[0] },
-            "entries"
+            "configEntries"
         );
     const [state, dispatchBase] = useReducer(entriesReducer, storedEntries);
 
@@ -67,12 +64,3 @@ export const EntriesProvider = ({
         </EntriesContext.Provider>
     );
 };
-
-// --- Hook ---
-export function useEntries() {
-    const context = useContext(EntriesContext);
-    if (context === undefined) {
-        throw new Error("useEntries must be used within an EntriesProvider");
-    }
-    return context;
-}

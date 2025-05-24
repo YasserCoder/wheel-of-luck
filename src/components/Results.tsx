@@ -8,7 +8,7 @@ import { FaX } from "react-icons/fa6";
 import styles from "./styles/results.module.css";
 
 export default function Results() {
-    const [results, setResults] = useState<(string | File)[]>([
+    const [results, setResults] = useState<string[]>([
         "result 2",
         "result 3",
         "result 4",
