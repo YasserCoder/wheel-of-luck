@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState } from "react";
-import Sortable, { SortableEvent } from "sortablejs";
+import { useState } from "react";
 
 import OperationBtns from "./OperationBtns";
 import DisplayIO from "./DisplayIO";
+import { useSortable } from "../hook/useSortable";
 import { useEntries } from "../context/entriesContext";
 import { convertToBase64, shuffleArray, sortArray } from "../utils/helpers";
 
@@ -15,7 +15,11 @@ export default function Entries() {
         value: { entries, colors },
         dispatch,
     } = useEntries();
-    const listRef = useRef<HTMLUListElement | null>(null);
+    const listRef = useSortable({ entries, setEntries });
+
+    function setEntries(entries: string[]) {
+        dispatch({ type: "entries/set", payload: entries });
+    }
 
     async function addEntry(
         event:
@@ -60,25 +64,6 @@ export default function Entries() {
     function deleteEntry(id: number) {
         dispatch({ type: "entries/deleted", payload: id });
     }
-    useEffect(() => {
-        if (!listRef.current) return;
-        const sortable = new Sortable(listRef.current, {
-            animation: 150,
-            onEnd: (evt: SortableEvent) => {
-                if (evt.oldIndex === undefined || evt.newIndex === undefined)
-                    return;
-                const newItems = [...entries];
-                const [movedItem] = newItems.splice(evt.oldIndex, 1);
-                newItems.splice(evt.newIndex, 0, movedItem);
-                dispatch({
-                    type: "entries/set",
-                    payload: newItems,
-                });
-            },
-        });
-
-        return () => sortable.destroy(); // Clean up
-    }, [entries, dispatch]);
     return (
         <>
             <OperationBtns
