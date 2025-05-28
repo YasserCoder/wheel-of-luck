@@ -1,6 +1,7 @@
-import MenuItem from "./MenuItem";
-import { LuBadgePlus, LuFolderOpen, LuSave } from "react-icons/lu";
-import { MdOutlineColorLens } from "react-icons/md";
+import NewBtn from "./NewBtn";
+import SaveBtn from "./SaveBtn";
+import OpenBtn from "./OpenBtn";
+import CustomizeBtn from "./CustomizeBtn";
 
 export default function Menu() {
     return (
@@ -15,30 +16,10 @@ export default function Menu() {
                 gap: "10px",
             }}
         >
-            <MenuItem
-                value="New"
-                handleClick={() => console.log("New clicked")}
-            >
-                <LuBadgePlus />
-            </MenuItem>
-            <MenuItem
-                value="Save"
-                handleClick={() => console.log("Save clicked")}
-            >
-                <LuSave />
-            </MenuItem>
-            <MenuItem
-                value="Open"
-                handleClick={() => console.log("Open clicked")}
-            >
-                <LuFolderOpen />
-            </MenuItem>
-            <MenuItem
-                value="Customize"
-                handleClick={() => console.log("Customize clicked")}
-            >
-                <MdOutlineColorLens />
-            </MenuItem>
+            <NewBtn />
+            <SaveBtn />
+            <OpenBtn />
+            <CustomizeBtn />
         </aside>
     );
 }

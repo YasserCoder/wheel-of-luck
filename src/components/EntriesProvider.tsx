@@ -13,7 +13,8 @@ type Action =
     | { type: "entries/added"; payload: string }
     | { type: "entries/deleted"; payload: number }
     | { type: "entries/set"; payload: string[] }
-    | { type: "colors/set"; payload: string[] };
+    | { type: "colors/set"; payload: string[] }
+    | { type: "config/set"; payload: EntriesState };
 
 export type EntriesContextType = {
     value: EntriesState;
@@ -33,6 +34,8 @@ const entriesReducer = (state: EntriesState, action: Action): EntriesState => {
             return { ...state, entries: action.payload };
         case "colors/set":
             return { ...state, colors: action.payload };
+        case "config/set":
+            return action.payload;
         default:
             return state;
     }

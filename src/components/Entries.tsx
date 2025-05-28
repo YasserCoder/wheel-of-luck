@@ -30,6 +30,12 @@ export default function Entries() {
                     return;
                 }
                 const base64 = (await convertToBase64(file)) as string;
+                if (entries.includes(base64)) {
+                    alert(
+                        "the entry already exists \nThe entry must be unique"
+                    );
+                    return;
+                }
                 dispatch({
                     type: "entries/added",
                     payload: base64,
@@ -37,6 +43,11 @@ export default function Entries() {
             }
         } else {
             if (entry === "") return;
+            if (entries.includes(entry)) {
+                alert("The entry already exists \nThe entry must be unique");
+                setEntry("");
+                return;
+            }
             dispatch({
                 type: "entries/added",
                 payload: entry,
