@@ -5,13 +5,19 @@ export default function DisplayIO({
     io,
     handleDelete,
     children,
+    source = "results",
 }: {
     io: string;
     handleDelete: () => void;
     children: React.ReactNode;
+    source?: "entries" | "results";
 }) {
     return (
-        <div className={styles.io}>
+        <li
+            className={`${source === "entries" ? styles.entries : ""} ${
+                styles.io
+            }`}
+        >
             {children}
             <div className={styles.ioText}>
                 {!io.startsWith("data:image") ? (
@@ -23,6 +29,6 @@ export default function DisplayIO({
             <button onClick={handleDelete} className={styles.deleteBtn}>
                 <LuX />
             </button>
-        </div>
+        </li>
     );
 }

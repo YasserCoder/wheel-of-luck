@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import Sortable, { SortableEvent } from "sortablejs";
 
 import OperationBtns from "./OperationBtns";
 import DisplayIO from "./DisplayIO";
@@ -14,6 +15,7 @@ export default function Entries() {
         value: { entries, colors },
         dispatch,
     } = useEntries();
+    const listRef = useRef<HTMLUListElement | null>(null);
 
     async function addEntry(
         event:
@@ -58,6 +60,25 @@ export default function Entries() {
     function deleteEntry(id: number) {
         dispatch({ type: "entries/deleted", payload: id });
     }
+    useEffect(() => {
+        if (!listRef.current) return;
+        const sortable = new Sortable(listRef.current, {
+            animation: 150,
+            onEnd: (evt: SortableEvent) => {
+                if (evt.oldIndex === undefined || evt.newIndex === undefined)
+                    return;
+                const newItems = [...entries];
+                const [movedItem] = newItems.splice(evt.oldIndex, 1);
+                newItems.splice(evt.newIndex, 0, movedItem);
+                dispatch({
+                    type: "entries/set",
+                    payload: newItems,
+                });
+            },
+        });
+
+        return () => sortable.destroy(); // Clean up
+    }, [entries, dispatch]);
     return (
         <>
             <OperationBtns
@@ -77,11 +98,12 @@ export default function Entries() {
                 <LuShuffle />
                 <span>Shuffle</span>
             </OperationBtns>
-            <div className={styles.entries}>
+            <ul ref={listRef} className={styles.entries}>
                 {entries.map((entry, i) => (
                     <DisplayIO
-                        key={i}
+                        key={entry + i}
                         io={entry}
+                        source={"entries"}
                         handleDelete={() => deleteEntry(i)}
                     >
                         <span
@@ -92,7 +114,7 @@ export default function Entries() {
                         />
                     </DisplayIO>
                 ))}
-            </div>
+            </ul>
             <div className={styles.addEntrySec}>
                 <form className={styles.addEntryForm} onSubmit={addEntry}>
                     <input
