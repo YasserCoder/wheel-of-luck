@@ -2,6 +2,7 @@ import IOSection from "./IOSection";
 import Menu from "./Menu";
 import { ResultsProvider } from "./ResultsProvider";
 import ToggleSwitch from "./ToggleSwitch";
+import Wheel from "./Wheel";
 
 import styles from "./styles/main.module.css";
 
@@ -13,6 +14,7 @@ export default function Main() {
             <div className={`container ${styles.section}`}>
                 <ResultsProvider>
                     <IOSection />
+                    <Wheel />
                 </ResultsProvider>
             </div>
         </main>
