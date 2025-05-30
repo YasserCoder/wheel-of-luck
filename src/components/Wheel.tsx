@@ -1,25 +1,16 @@
 import { useEntries } from "../context/entriesContext";
+import styles from "./styles/Wheel.module.css";
 
 export default function Wheel() {
     const {
         value: { entries, colors },
     } = useEntries();
-    const radius = 220;
+    const radius = 230;
     const center = radius;
     const angle = 360 / entries.length;
 
     return (
-        <div
-            style={{
-                border: "5px solid red",
-                borderRadius: "50%",
-                width: "fit-content",
-                height: "fit-content",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-            }}
-        >
+        <div className={styles.wheel}>
             <svg width={radius * 2} height={radius * 2}>
                 {entries.map((entry, i) => (
                     <Slice
@@ -30,6 +21,7 @@ export default function Wheel() {
                         center={center}
                         content={entry}
                         color={colors[i % colors.length] || "#000"}
+                        slices={entries.length}
                     />
                 ))}
             </svg>
@@ -44,12 +36,21 @@ type SliceProps = {
     center: number;
     content: string;
     color: string;
+    slices: number;
 };
-function Slice({ i, angle, radius, center, content, color }: SliceProps) {
+function Slice({
+    i,
+    angle,
+    radius,
+    center,
+    content,
+    color,
+    slices,
+}: SliceProps) {
     const toRadians = (deg: number) => (deg * Math.PI) / 180;
 
     const startAngle = angle * i;
-    const endAngle = startAngle + angle;
+    const endAngle = startAngle + angle - 0.01; // Slightly less to avoid overlap
 
     const x1 = center + radius * Math.cos(toRadians(startAngle));
     const y1 = center + radius * Math.sin(toRadians(startAngle));
@@ -69,6 +70,30 @@ function Slice({ i, angle, radius, center, content, color }: SliceProps) {
     const contentX = center + (radius / 1.7) * Math.cos(midAngle);
     const contentY = center + (radius / 1.7) * Math.sin(midAngle);
 
+    let maxTextLength = 20;
+    let imageHeight = 20;
+    let textSize = 14;
+
+    if (slices <= 2) {
+        imageHeight = 85;
+        textSize = 22;
+        maxTextLength = 18;
+    } else if (slices <= 10) {
+        imageHeight = 70;
+        textSize = 19;
+        maxTextLength = 17;
+    } else if (slices <= 20) {
+        imageHeight = 42;
+        textSize = 16;
+    } else if (slices <= 30) {
+        imageHeight = 30;
+        textSize = 14;
+    } else if (slices <= 40) {
+        imageHeight = 20;
+        textSize = 12;
+        maxTextLength = 22;
+    }
+
     return (
         <g>
             <path d={pathData} fill={color} />
@@ -78,21 +103,23 @@ function Slice({ i, angle, radius, center, content, color }: SliceProps) {
                     y={contentY}
                     textAnchor="middle"
                     dominantBaseline="middle"
-                    fontSize="12"
+                    fontSize={textSize}
                     fill="white"
                     transform={`rotate(${
                         startAngle + angle / 2
                     }, ${contentX}, ${contentY})`}
                 >
-                    {content}
+                    {content.length > maxTextLength
+                        ? `${content.slice(0, maxTextLength)}...`
+                        : content}
                 </text>
             ) : (
                 <image
                     href={content}
-                    x={contentX - 10}
-                    y={contentY - 10}
-                    width="50"
-                    height="50"
+                    x={contentX - imageHeight / 2}
+                    y={contentY - imageHeight / 2}
+                    height={imageHeight}
+                    preserveAspectRatio="xMidYMid meet"
                     transform={`rotate(${
                         startAngle + angle / 2
                     }, ${contentX}, ${contentY})`}

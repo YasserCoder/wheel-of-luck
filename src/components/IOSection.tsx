@@ -3,6 +3,8 @@ import { useState } from "react";
 import Results from "./Results";
 import Entries from "./Entries";
 import { useLocalStorageState } from "../hook/useLocalStorageState";
+import { useEntries } from "../context/entriesContext";
+import { useResults } from "../context/resultsContext";
 
 import { LuEye, LuEyeOff } from "react-icons/lu";
 import styles from "./styles/ioSection.module.css";
@@ -47,6 +49,10 @@ function TabsHeader({
     activeTab: string;
     setActiveTab: (tab: string) => void;
 }) {
+    const {
+        value: { entries },
+    } = useEntries();
+    const { results } = useResults();
     return (
         <div className={styles.header}>
             <div className={styles.tabs}>
@@ -59,7 +65,7 @@ function TabsHeader({
                         setActiveTab("entries");
                     }}
                 >
-                    Entries
+                    Entries ({entries.length})
                 </button>
                 <button
                     className={`${styles.tab} ${
@@ -70,10 +76,10 @@ function TabsHeader({
                         setActiveTab("results");
                     }}
                 >
-                    Results
+                    Results ({results.length})
                 </button>
             </div>
-            <div style={{ borderBottom: "1px solid #b1b1b1", flex: "1" }}></div>
+            <span className={styles.bordered} />
         </div>
     );
 }

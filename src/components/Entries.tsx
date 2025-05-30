@@ -5,6 +5,7 @@ import DisplayIO from "./DisplayIO";
 import { useSortable } from "../hook/useSortable";
 import { useEntries } from "../context/entriesContext";
 import { convertToBase64, shuffleArray, sortArray } from "../utils/helpers";
+import { MAX_ENTRIES } from "../utils/constants";
 
 import { LuImagePlus, LuPlus, LuShuffle } from "react-icons/lu";
 import styles from "./styles/entries.module.css";
@@ -106,11 +107,18 @@ export default function Entries() {
                         className={styles.addEntryInput}
                         placeholder="Add Entry"
                         value={entry}
+                        disabled={entries.length >= MAX_ENTRIES}
                         onChange={(
                             event: React.ChangeEvent<HTMLInputElement>
                         ) => setEntry(event.target.value)}
                     />
-                    <button type="submit" className={styles.addBtn}>
+                    <button
+                        disabled={entries.length >= MAX_ENTRIES}
+                        type="submit"
+                        className={`${styles.addBtn} ${
+                            entries.length >= MAX_ENTRIES ? styles.disabled : ""
+                        }`}
+                    >
                         <LuPlus />
                     </button>
                 </form>
@@ -120,12 +128,24 @@ export default function Entries() {
                     type="file"
                     accept="image/*"
                     onChange={addEntry}
+                    disabled={entries.length >= MAX_ENTRIES}
                     style={{ display: "none" }}
                 />
-                <label htmlFor="img-upload" className={styles.addImgBtn}>
+                <label
+                    htmlFor="img-upload"
+                    className={`${styles.addImgBtn} ${
+                        entries.length >= MAX_ENTRIES ? styles.disabled : ""
+                    }`}
+                >
                     <LuImagePlus />
                 </label>
             </div>
+            {entries.length >= MAX_ENTRIES && (
+                <p className={styles.maxEntriesWarning}>
+                    **You have reached the maximum number of entries (
+                    {MAX_ENTRIES})
+                </p>
+            )}
         </>
     );
 }

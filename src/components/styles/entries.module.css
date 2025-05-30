@@ -10,10 +10,6 @@
     min-width: 14px;
     height: 14px;
 }
-.addBtn:hover {
-    scale: 1.1;
-    transition-duration: 300ms;
-}
 .addEntrySec {
     display: flex;
     gap: 10px;
@@ -46,6 +42,10 @@
     height: 25px;
     cursor: pointer;
 }
+.addBtn:hover {
+    scale: 1.1;
+    transition-duration: 300ms;
+}
 .or {
     font-size: 20px;
     font-weight: 600;
@@ -66,4 +66,19 @@
 .addImgBtn:hover {
     box-shadow: 1px 1px 3px var(--color-violet);
     transition-duration: 300ms;
+}
+.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+.disabled:hover {
+    box-shadow: none;
+    scale: 1;
+}
+.maxEntriesWarning {
+    color: red;
+    font-size: 10px;
+    position: absolute;
+    bottom: 3px;
+    left: 10px;
 }
