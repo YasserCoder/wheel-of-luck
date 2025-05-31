@@ -1,3 +1,8 @@
+.wheelContainer {
+    position: relative;
+    width: fit-content;
+    height: fit-content;
+}
 .wheel {
     width: fit-content;
     height: fit-content;
@@ -7,4 +12,16 @@
     align-items: center;
     justify-content: center;
     overflow: hidden;
+}
+.arrow {
+    position: absolute;
+    top: 50%;
+    right: -20px;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-top: 20px solid transparent;
+    border-bottom: 20px solid transparent;
+    border-right: 30px solid var(--color-violet);
+    z-index: 10;
 }

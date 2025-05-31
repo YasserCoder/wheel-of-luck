@@ -1,4 +1,6 @@
 import { useEntries } from "../context/entriesContext";
+import { useState, useRef } from "react";
+import { EXTRA_SPINS, SPINNNG_DURATION } from "../utils/constants";
 import styles from "./styles/Wheel.module.css";
 
 export default function Wheel() {
@@ -9,22 +11,72 @@ export default function Wheel() {
     const center = radius;
     const angle = 360 / entries.length;
 
+    const [spinning, setSpinning] = useState(false);
+    const wheelRef = useRef<SVGSVGElement>(null);
+    const [currentRotation, setCurrentRotation] = useState(0);
+
+    const spinWheel = () => {
+        if (spinning) return;
+        if (entries.length < 2) return;
+        setSpinning(true);
+
+        const randomAngle = Math.floor(Math.random() * 360);
+
+        const finalRotation = currentRotation + 360 * EXTRA_SPINS + randomAngle;
+
+        if (wheelRef.current) {
+            wheelRef.current.style.transition = `transform ${SPINNNG_DURATION}ms ease-out`;
+            wheelRef.current.style.transform = `rotate(${finalRotation}deg)`;
+        }
+
+        setCurrentRotation(finalRotation);
+
+        setTimeout(() => {
+            setSpinning(false);
+
+            const normalizedRotation = ((finalRotation % 360) + 360) % 360;
+
+            const pointerAngle = 0;
+
+            const arrowAngle = (pointerAngle - normalizedRotation + 360) % 360;
+
+            const winningIndex =
+                Math.floor(arrowAngle / angle) % entries.length;
+
+            const winner = entries[winningIndex];
+            alert(`Winner: ${winner}`);
+        }, SPINNNG_DURATION + 500);
+    };
     return (
-        <div className={styles.wheel}>
-            <svg width={radius * 2} height={radius * 2}>
-                {entries.map((entry, i) => (
-                    <Slice
-                        key={i}
-                        i={i}
-                        angle={angle}
-                        radius={radius}
-                        center={center}
-                        content={entry}
-                        color={colors[i % colors.length] || "#000"}
-                        slices={entries.length}
-                    />
-                ))}
-            </svg>
+        <div className={styles.wheelContainer}>
+            <div className={styles.arrow}></div>
+            <div
+                style={{
+                    cursor: entries.length < 2 ? "not-allowed" : "pointer",
+                }}
+                className={styles.wheel}
+                onClick={spinWheel}
+            >
+                <svg
+                    ref={wheelRef}
+                    width={radius * 2}
+                    height={radius * 2}
+                    viewBox={`0 0 ${radius * 2} ${radius * 2}`}
+                >
+                    {entries.map((entry, i) => (
+                        <Slice
+                            key={i}
+                            i={i}
+                            angle={angle}
+                            radius={radius}
+                            center={center}
+                            content={entry}
+                            color={colors[i % colors.length] || "#000"}
+                            slices={entries.length}
+                        />
+                    ))}
+                </svg>
+            </div>
         </div>
     );
 }
@@ -50,7 +102,7 @@ function Slice({
     const toRadians = (deg: number) => (deg * Math.PI) / 180;
 
     const startAngle = angle * i;
-    const endAngle = startAngle + angle - 0.01; // Slightly less to avoid overlap
+    const endAngle = startAngle + angle - 0.01;
 
     const x1 = center + radius * Math.cos(toRadians(startAngle));
     const y1 = center + radius * Math.sin(toRadians(startAngle));
