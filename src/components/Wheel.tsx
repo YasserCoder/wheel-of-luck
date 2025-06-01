@@ -7,6 +7,7 @@ import { EXTRA_SPINS, SPINNNG_DURATION } from "../utils/constants";
 import spiningSound from "../assets/spining sound.mp3";
 import winnerRevealSound from "../assets/result-ding.mp3";
 import styles from "./styles/Wheel.module.css";
+import confetti from "canvas-confetti";
 
 export default function Wheel() {
     const {
@@ -43,9 +44,6 @@ export default function Wheel() {
         setTimeout(() => {
             setSpinning(false);
 
-            const winnerRevealAudio = new Audio(winnerRevealSound);
-            winnerRevealAudio.play();
-
             const normalizedRotation = ((finalRotation % 360) + 360) % 360;
 
             const pointerAngle = 0;
@@ -56,7 +54,7 @@ export default function Wheel() {
                 Math.floor(arrowAngle / angle) % entries.length;
 
             const winner = entries[winningIndex];
-            alert(`Winner: ${winner}`);
+            console.log(`Winner: ${winner}`);
             const existingWinnerIndex = results.findIndex(
                 (result) => result.winner === winner
             );
@@ -71,6 +69,13 @@ export default function Wheel() {
                     payload: winner,
                 });
             }
+            const winnerRevealAudio = new Audio(winnerRevealSound);
+            winnerRevealAudio.play();
+            confetti({
+                particleCount: 300,
+                spread: 150,
+                origin: { y: 0.3 },
+            });
         }, SPINNNG_DURATION + 500);
     };
     return (
