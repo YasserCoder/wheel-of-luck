@@ -1,12 +1,19 @@
-import { useEntries } from "../context/entriesContext";
 import { useState, useRef } from "react";
+
+import { useResults } from "../context/resultsContext";
+import { useEntries } from "../context/entriesContext";
 import { EXTRA_SPINS, SPINNNG_DURATION } from "../utils/constants";
+
+import spiningSound from "../assets/spining sound.mp3";
+import winnerRevealSound from "../assets/result-ding.mp3";
 import styles from "./styles/Wheel.module.css";
 
 export default function Wheel() {
     const {
         value: { entries, colors },
     } = useEntries();
+    const { results, dispatch } = useResults();
+
     const radius = 230;
     const center = radius;
     const angle = 360 / entries.length;
@@ -31,8 +38,13 @@ export default function Wheel() {
 
         setCurrentRotation(finalRotation);
 
+        const audio = new Audio(spiningSound);
+        audio.play();
         setTimeout(() => {
             setSpinning(false);
+
+            const winnerRevealAudio = new Audio(winnerRevealSound);
+            winnerRevealAudio.play();
 
             const normalizedRotation = ((finalRotation % 360) + 360) % 360;
 
@@ -45,6 +57,20 @@ export default function Wheel() {
 
             const winner = entries[winningIndex];
             alert(`Winner: ${winner}`);
+            const existingWinnerIndex = results.findIndex(
+                (result) => result.winner === winner
+            );
+            if (existingWinnerIndex !== -1) {
+                dispatch({
+                    type: "results/increment",
+                    payload: existingWinnerIndex,
+                });
+            } else {
+                dispatch({
+                    type: "results/added",
+                    payload: winner,
+                });
+            }
         }, SPINNNG_DURATION + 500);
     };
     return (

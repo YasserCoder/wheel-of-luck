@@ -45,10 +45,7 @@ export const ResultsProvider = ({
 }: {
     children: React.ReactNode;
 }) => {
-    const [state, dispatch] = useReducer(resultsReducer, [
-        { winner: "chelsea", winNumber: 1 },
-        { winner: "arsenal", winNumber: 2 },
-    ]);
+    const [state, dispatch] = useReducer(resultsReducer, []);
 
     return (
         <ResultsContext.Provider value={{ results: state, dispatch }}>
