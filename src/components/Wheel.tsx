@@ -8,6 +8,7 @@ import spiningSound from "../assets/spining sound.mp3";
 import winnerRevealSound from "../assets/result-ding.mp3";
 import styles from "./styles/Wheel.module.css";
 import confetti from "canvas-confetti";
+import Swal from "sweetalert2";
 
 export default function Wheel() {
     const {
@@ -71,6 +72,25 @@ export default function Wheel() {
             }
             const winnerRevealAudio = new Audio(winnerRevealSound);
             winnerRevealAudio.play();
+            Swal.fire({
+                // i want to controll the size of the text
+                // customClass: {
+                //     title: "text-2xl font-bold",
+                // },
+                title: "WE HAVE A WINNER!",
+                text: `${winner}`,
+                showDenyButton: true,
+                showCancelButton: true,
+                denyButtonText: `Don't save`,
+                cancelButtonText: `Close`,
+                showConfirmButton: false,
+                width: "30rem",
+                color: colors[winningIndex % colors.length] || "#000",
+            }).then((result) => {
+                if (result.isDenied) {
+                    Swal.fire("Changes are not saved", "", "info");
+                }
+            });
             confetti({
                 particleCount: 300,
                 spread: 150,
