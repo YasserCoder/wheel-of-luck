@@ -8,6 +8,7 @@
     --color-secondary-bkg: #f9f9f9;
     --color-border: #b1b1b1;
     --color-hover: #e0e0e0;
+    --color-backdrop: rgba(255, 255, 255, 0.1);
 }
 :root[data-theme="dark"] {
     --color-body: #f5f6fa;
@@ -17,6 +18,7 @@
     --color-secondary-bkg: #222222;
     --color-border: #888888;
     --color-hover: #2a2a2a;
+    --color-backdrop: rgba(0, 0, 0, 0.3);
 }
 
 /* CSS reset */

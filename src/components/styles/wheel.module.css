@@ -25,3 +25,82 @@
     border-right: 30px solid var(--color-violet);
     z-index: 10;
 }
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--color-backdrop);
+    backdrop-filter: blur(1px);
+    z-index: 100;
+}
+.dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90vw;
+    max-width: 500px;
+    background-color: var(--color-bkg);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 200;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.dialog h2 {
+    color: var(--color-violet);
+    text-decoration: uppercase;
+    font-size: 25px;
+    font-weight: 600;
+}
+.winnerContainer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    align-self: center;
+    margin-block: 20px;
+}
+.winnerColor {
+    border-radius: 100%;
+    min-width: 14px;
+    height: 14px;
+}
+.winnerContainer p {
+    font-size: 22px;
+    font-weight: 700;
+}
+.btnsContainer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    align-self: flex-end;
+}
+.removeBtn {
+    background-color: var(--color-violet);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    text-transform: capitalize;
+}
+.closeBtn {
+    color: var(--color-border);
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    text-transform: capitalize;
+}
+.closeBtn:hover {
+    background-color: var(--color-hover);
+    transition-duration: 300ms;
+}
+.removeBtn:hover {
+    background-color: #7b00da;
+    transition-duration: 300ms;
+}

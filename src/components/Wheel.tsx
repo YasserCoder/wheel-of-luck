@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import confetti from "canvas-confetti";
 
 import { useResults } from "../context/resultsContext";
 import { useEntries } from "../context/entriesContext";
@@ -7,8 +8,6 @@ import { EXTRA_SPINS, SPINNNG_DURATION } from "../utils/constants";
 import spiningSound from "../assets/spining sound.mp3";
 import winnerRevealSound from "../assets/result-ding.mp3";
 import styles from "./styles/Wheel.module.css";
-import confetti from "canvas-confetti";
-import Swal from "sweetalert2";
 
 export default function Wheel() {
     const {
@@ -23,6 +22,8 @@ export default function Wheel() {
     const [spinning, setSpinning] = useState(false);
     const wheelRef = useRef<SVGSVGElement>(null);
     const [currentRotation, setCurrentRotation] = useState(0);
+    const [resultVisible, setResultVisible] = useState(false);
+    const [result, setResult] = useState({ winner: "", color: "#000" });
 
     const spinWheel = () => {
         if (spinning) return;
@@ -55,6 +56,7 @@ export default function Wheel() {
                 Math.floor(arrowAngle / angle) % entries.length;
 
             const winner = entries[winningIndex];
+            setResult({ winner, color: colors[winningIndex % colors.length] });
             console.log(`Winner: ${winner}`);
             const existingWinnerIndex = results.findIndex(
                 (result) => result.winner === winner
@@ -72,63 +74,48 @@ export default function Wheel() {
             }
             const winnerRevealAudio = new Audio(winnerRevealSound);
             winnerRevealAudio.play();
-            Swal.fire({
-                // i want to controll the size of the text
-                // customClass: {
-                //     title: "text-2xl font-bold",
-                // },
-                title: "WE HAVE A WINNER!",
-                text: `${winner}`,
-                showDenyButton: true,
-                showCancelButton: true,
-                denyButtonText: `Don't save`,
-                cancelButtonText: `Close`,
-                showConfirmButton: false,
-                width: "30rem",
-                color: colors[winningIndex % colors.length] || "#000",
-            }).then((result) => {
-                if (result.isDenied) {
-                    Swal.fire("Changes are not saved", "", "info");
-                }
-            });
             confetti({
                 particleCount: 300,
                 spread: 150,
                 origin: { y: 0.3 },
             });
+            setResultVisible(true);
         }, SPINNNG_DURATION + 500);
     };
     return (
-        <div className={styles.wheelContainer}>
-            <div className={styles.arrow}></div>
-            <div
-                style={{
-                    cursor: entries.length < 2 ? "not-allowed" : "pointer",
-                }}
-                className={styles.wheel}
-                onClick={spinWheel}
-            >
-                <svg
-                    ref={wheelRef}
-                    width={radius * 2}
-                    height={radius * 2}
-                    viewBox={`0 0 ${radius * 2} ${radius * 2}`}
+        <>
+            <div className={styles.wheelContainer}>
+                <div className={styles.arrow}></div>
+                <div
+                    style={{
+                        cursor: entries.length < 2 ? "not-allowed" : "pointer",
+                    }}
+                    className={styles.wheel}
+                    onClick={spinWheel}
                 >
-                    {entries.map((entry, i) => (
-                        <Slice
-                            key={i}
-                            i={i}
-                            angle={angle}
-                            radius={radius}
-                            center={center}
-                            content={entry}
-                            color={colors[i % colors.length] || "#000"}
-                            slices={entries.length}
-                        />
-                    ))}
-                </svg>
+                    <svg
+                        ref={wheelRef}
+                        width={radius * 2}
+                        height={radius * 2}
+                        viewBox={`0 0 ${radius * 2} ${radius * 2}`}
+                    >
+                        {entries.map((entry, i) => (
+                            <Slice
+                                key={i}
+                                i={i}
+                                angle={angle}
+                                radius={radius}
+                                center={center}
+                                content={entry}
+                                color={colors[i % colors.length] || "#000"}
+                                slices={entries.length}
+                            />
+                        ))}
+                    </svg>
+                </div>
             </div>
-        </div>
+            {resultVisible && <Dialog result={result} />}
+        </>
     );
 }
 
@@ -229,5 +216,30 @@ function Slice({
                 />
             )}
         </g>
+    );
+}
+
+function Dialog({ result }: { result: { winner: string; color: string } }) {
+    return (
+        <div className={styles.overlay}>
+            <div className={styles.dialog}>
+                <h2>WE HAVE A WINNER!</h2>
+                <div className={styles.winnerContainer}>
+                    <span
+                        className={styles.winnerColor}
+                        style={{ backgroundColor: result.color }}
+                    ></span>
+                    {result.winner.startsWith("data:image") ? (
+                        <img src={result.winner} alt="Winner" />
+                    ) : (
+                        <p>{result.winner}</p>
+                    )}
+                </div>
+                <div className={styles.btnsContainer}>
+                    <button className={styles.closeBtn}>close</button>
+                    <button className={styles.removeBtn}>remove</button>
+                </div>
+            </div>
+        </div>
     );
 }
