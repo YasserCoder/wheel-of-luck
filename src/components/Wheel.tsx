@@ -8,6 +8,7 @@ import { EXTRA_SPINS, SPINNNG_DURATION } from "../utils/constants";
 import spiningSound from "../assets/spining sound.mp3";
 import winnerRevealSound from "../assets/result-ding.mp3";
 import styles from "./styles/Wheel.module.css";
+import { useOutsideClick } from "../hook/useOutsideClick";
 
 export default function Wheel() {
     const {
@@ -23,7 +24,7 @@ export default function Wheel() {
     const wheelRef = useRef<SVGSVGElement>(null);
     const [currentRotation, setCurrentRotation] = useState(0);
     const [resultVisible, setResultVisible] = useState(false);
-    const [result, setResult] = useState({ winner: "", color: "#000" });
+    const [winnerIndex, setWinnerIndex] = useState(-1);
 
     const spinWheel = () => {
         if (spinning) return;
@@ -56,7 +57,7 @@ export default function Wheel() {
                 Math.floor(arrowAngle / angle) % entries.length;
 
             const winner = entries[winningIndex];
-            setResult({ winner, color: colors[winningIndex % colors.length] });
+            setWinnerIndex(winningIndex);
             console.log(`Winner: ${winner}`);
             const existingWinnerIndex = results.findIndex(
                 (result) => result.winner === winner
@@ -114,7 +115,9 @@ export default function Wheel() {
                     </svg>
                 </div>
             </div>
-            {resultVisible && <Dialog result={result} />}
+            {resultVisible && (
+                <Dialog index={winnerIndex} isVisible={setResultVisible} />
+            )}
         </>
     );
 }
@@ -219,25 +222,66 @@ function Slice({
     );
 }
 
-function Dialog({ result }: { result: { winner: string; color: string } }) {
+function Dialog({
+    index,
+    isVisible,
+}: {
+    index: number;
+    isVisible: (visible: boolean) => void;
+}) {
+    const {
+        value: { entries, colors },
+        dispatch,
+    } = useEntries();
+
+    const close = () => isVisible(false);
+
+    const ref = useOutsideClick(close);
+
+    const winner = entries[index];
     return (
         <div className={styles.overlay}>
-            <div className={styles.dialog}>
-                <h2>WE HAVE A WINNER!</h2>
+            <div
+                ref={ref}
+                className={styles.dialog}
+                style={{ border: `2px solid ${colors[index % colors.length]}` }}
+            >
+                <h2
+                    style={{
+                        color: colors[index % colors.length],
+                    }}
+                >
+                    WE HAVE A WINNER!
+                </h2>
                 <div className={styles.winnerContainer}>
                     <span
                         className={styles.winnerColor}
-                        style={{ backgroundColor: result.color }}
+                        style={{
+                            backgroundColor: colors[index % colors.length],
+                        }}
                     ></span>
-                    {result.winner.startsWith("data:image") ? (
-                        <img src={result.winner} alt="Winner" />
+                    {winner.startsWith("data:image") ? (
+                        <img src={winner} alt="Winner" />
                     ) : (
-                        <p>{result.winner}</p>
+                        <p>{winner}</p>
                     )}
                 </div>
                 <div className={styles.btnsContainer}>
-                    <button className={styles.closeBtn}>close</button>
-                    <button className={styles.removeBtn}>remove</button>
+                    <button className={styles.closeBtn} onClick={close}>
+                        close
+                    </button>
+                    <button
+                        className={styles.removeBtn}
+                        onClick={() => {
+                            dispatch({
+                                type: "entries/deleted",
+                                payload: index,
+                            });
+                            close();
+                        }}
+                    >
+                        remove
+                    </button>
                 </div>
             </div>
         </div>
