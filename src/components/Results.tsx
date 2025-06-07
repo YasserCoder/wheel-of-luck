@@ -33,10 +33,11 @@ export default function Results() {
                         key={i}
                         io={result.winner}
                         handleDelete={() => deleteWinner(i)}
+                        winTimes={result.winNumber}
                     >
-                        <span className={styles.winnerTimes}>
-                            ( {result.winNumber} )
-                        </span>
+                        <DisplayIO.Content />
+                        <DisplayIO.WinTimes />
+                        <DisplayIO.DeleteBtn />
                     </DisplayIO>
                 ))}
             </div>

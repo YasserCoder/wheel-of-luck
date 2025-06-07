@@ -89,15 +89,12 @@ export default function Entries() {
                     <DisplayIO
                         key={entry + i}
                         io={entry}
-                        source={"entries"}
                         handleDelete={() => deleteEntry(i)}
+                        color={colors[i % colors.length]}
                     >
-                        <span
-                            style={{
-                                backgroundColor: colors[i % colors.length],
-                            }}
-                            className={styles.entryColor}
-                        />
+                        <DisplayIO.Color />
+                        <DisplayIO.Content />
+                        <DisplayIO.DeleteBtn />
                     </DisplayIO>
                 ))}
             </ul>

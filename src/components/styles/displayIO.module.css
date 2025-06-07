@@ -41,3 +41,13 @@
     scale: 1.1;
     transition-duration: 300ms;
 }
+.color {
+    border-radius: 100%;
+    min-width: 14px;
+    height: 14px;
+}
+.winTimes {
+    font-size: 15px;
+    color: var(--color-border);
+    white-space: nowrap;
+}
