@@ -5,6 +5,7 @@ import { useOutsideClick } from "../hook/useOutsideClick";
 import { useSpin } from "../hook/useSpin";
 
 import styles from "./styles/Wheel.module.css";
+import Swal from "sweetalert2";
 
 export default function Wheel() {
     const {
@@ -173,6 +174,13 @@ function Dialog({
     } = useEntries();
 
     const close = () => isVisible(false);
+    const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 2500,
+        timerProgressBar: true,
+    });
 
     const ref = useOutsideClick(close);
 
@@ -216,6 +224,10 @@ function Dialog({
                                 payload: index,
                             });
                             close();
+                            Toast.fire({
+                                icon: "success",
+                                title: "Item removed successfully!",
+                            });
                         }}
                     >
                         remove
