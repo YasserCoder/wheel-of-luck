@@ -1,0 +1,42 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--color-backdrop);
+    backdrop-filter: blur(4px);
+    z-index: 150;
+}
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 500px;
+    background-color: var(--color-bkg);
+    border-radius: 20px;
+    padding: 16px 20px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    z-index: 200;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow-y: auto;
+    overflow-x: clip;
+    transition-duration: 500ms;
+}
+.btnContainer {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+}
+.closeBtn {
+    font-size: 25px;
+    text-align: end;
+    transition-duration: 300px;
+}
+.closeBtn:hover {
+    color: red;
+}
