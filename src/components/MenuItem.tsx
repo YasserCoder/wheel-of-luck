@@ -6,7 +6,7 @@ export default function MenuItem({
     children,
 }: {
     value: string;
-    handleClick: () => void;
+    handleClick?: () => void;
     children: React.ReactNode;
 }) {
     return (
