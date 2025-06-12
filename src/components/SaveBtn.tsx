@@ -1,15 +1,12 @@
-import { LuSave } from "react-icons/lu";
-import MenuItem from "./MenuItem";
-import { useLocalStorageState } from "../hook/useLocalStorageState";
-import { useEntries } from "../context/entriesContext";
 import Swal from "sweetalert2";
+import MenuItem from "./MenuItem";
+import { useEntries } from "../context/entriesContext";
+import { useSavedEntries } from "../context/savedEntriesContext";
 
-type SavedEntry = { title: string; entries: string[]; colors: string[] };
+import { LuSave } from "react-icons/lu";
+
 export default function SaveBtn() {
-    const [savedEntries, setSavedEntries] = useLocalStorageState<SavedEntry[]>(
-        [],
-        "savedEntries"
-    );
+    const { savedEntries, setSavedEntries } = useSavedEntries();
     const { value } = useEntries();
     async function handleSave() {
         const { value: title } = await Swal.fire({
@@ -37,11 +34,17 @@ export default function SaveBtn() {
                 title: "Saved!",
                 text: "Your data has been saved.",
                 icon: "success",
+                showConfirmButton: false,
+                timer: 1500,
             });
         }
     }
     return (
-        <MenuItem value="Save" handleClick={handleSave}>
+        <MenuItem
+            disabled={value.entries.length < 2}
+            value="Save"
+            handleClick={handleSave}
+        >
             <LuSave />
         </MenuItem>
     );

@@ -11,6 +11,11 @@
     text-transform: uppercase;
     align-self: start;
 }
+.empty {
+    font-size: 28px;
+    font-weight: 700;
+    margin-block: 35px;
+}
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));

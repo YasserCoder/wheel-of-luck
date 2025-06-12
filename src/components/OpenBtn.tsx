@@ -3,9 +3,9 @@ import Swal from "sweetalert2";
 
 import Modal from "./Modal";
 import MenuItem from "./MenuItem";
-import { useLocalStorageState } from "../hook/useLocalStorageState";
 import { useOutsideClick } from "../hook/useOutsideClick";
 import { useEntries } from "../context/entriesContext";
+import { useSavedEntries } from "../context/savedEntriesContext";
 
 import { LuFolderOpen, LuX } from "react-icons/lu";
 import styles from "./styles/openBtn.module.css";
@@ -25,17 +25,8 @@ export default function OpenBtn() {
     );
 }
 
-type SavedEntry = {
-    title: string;
-    entries: string[];
-    colors: string[];
-};
-
 function SavedEntries({ onClose }: { onClose?: () => void }) {
-    const [savedEntries, setSavedEntries] = useLocalStorageState<SavedEntry[]>(
-        [],
-        "savedEntries"
-    );
+    const { savedEntries, setSavedEntries } = useSavedEntries();
     const { dispatch } = useEntries();
     const [isSelected, setIsSelected] = useState("");
 
@@ -138,7 +129,12 @@ function SavedEntries({ onClose }: { onClose?: () => void }) {
                                     <LuX />
                                 </button>
                             </div>
-                            <h3 className={styles.entryTitle}>{entry.title}</h3>
+                            <h3
+                                className={styles.entryTitle}
+                                title={entry.title}
+                            >
+                                {entry.title}
+                            </h3>
                             <p className={styles.entries}>
                                 {entry.entries
                                     .map((e) =>
@@ -153,7 +149,7 @@ function SavedEntries({ onClose }: { onClose?: () => void }) {
             <div className={styles.footer}>
                 <button
                     className={`${styles.btn} ${styles.openBtn}`}
-                    disabled={savedEntries.length === 0}
+                    disabled={savedEntries.length === 0 || !isSelected}
                     onClick={openSaved}
                 >
                     Open

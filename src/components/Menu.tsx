@@ -2,6 +2,7 @@ import NewBtn from "./NewBtn";
 import SaveBtn from "./SaveBtn";
 import OpenBtn from "./OpenBtn";
 import CustomizeBtn from "./CustomizeBtn";
+import { SavedEntriesProvider } from "./SavedEntriesProvider";
 
 export default function Menu() {
     return (
@@ -17,8 +18,10 @@ export default function Menu() {
             }}
         >
             <NewBtn />
-            <SaveBtn />
-            <OpenBtn />
+            <SavedEntriesProvider>
+                <SaveBtn />
+                <OpenBtn />
+            </SavedEntriesProvider>
             <CustomizeBtn />
         </aside>
     );

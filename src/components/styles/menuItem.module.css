@@ -11,6 +11,10 @@
     height: 45px;
     position: relative;
 }
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
 .tooltip {
     position: absolute;
     background-color: var(--color-violet);
@@ -27,4 +31,7 @@
 }
 .btn:hover .tooltip {
     opacity: 1;
+}
+.btn:disabled .tooltip {
+    opacity: 0;
 }
