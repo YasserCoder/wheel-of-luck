@@ -52,7 +52,7 @@ export function useSpin(
 
             const winner = entries[winningIndex];
             setWinnerIndex(winningIndex);
-            console.log(`Winner: ${winner}`);
+
             const existingWinnerIndex = results.findIndex(
                 (result) => result.winner === winner
             );

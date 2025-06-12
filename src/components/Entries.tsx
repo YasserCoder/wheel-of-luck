@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Swal from "sweetalert2";
 
 import OperationBtns from "./OperationBtns";
 import DisplayIO from "./DisplayIO";
@@ -21,7 +22,13 @@ export default function Entries() {
     function setEntries(entries: string[]) {
         dispatch({ type: "entries/set", payload: entries });
     }
-
+    function triggerAlert() {
+        Swal.fire({
+            icon: "error",
+            title: "The entry already exists",
+            text: "The entry must be unique",
+        });
+    }
     async function addEntry(
         event:
             | React.FormEvent<HTMLFormElement>
@@ -38,9 +45,7 @@ export default function Entries() {
                 }
                 const base64 = (await convertToBase64(file)) as string;
                 if (entries.includes(base64)) {
-                    alert(
-                        "the entry already exists \nThe entry must be unique"
-                    );
+                    triggerAlert();
                     return;
                 }
                 dispatch({
@@ -51,7 +56,7 @@ export default function Entries() {
         } else {
             if (entry === "") return;
             if (entries.includes(entry)) {
-                alert("The entry already exists \nThe entry must be unique");
+                triggerAlert();
                 setEntry("");
                 return;
             }
