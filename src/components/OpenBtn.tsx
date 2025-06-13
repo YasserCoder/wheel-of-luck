@@ -3,6 +3,7 @@ import Swal from "sweetalert2";
 
 import Modal from "./Modal";
 import MenuItem from "./MenuItem";
+import ModalWrapper from "./ModalWrapper";
 import { useOutsideClick } from "../hook/useOutsideClick";
 import { useEntries } from "../context/entriesContext";
 import { useSavedEntries } from "../context/savedEntriesContext";
@@ -80,8 +81,13 @@ function SavedEntries({ onClose }: { onClose?: () => void }) {
         });
     }
     return (
-        <div className={styles.container}>
-            <h2 className={styles.title}>saved Entries</h2>
+        <ModalWrapper
+            title="saved Entries"
+            confirmBtn="Open"
+            confirmDisabled={savedEntries.length === 0 || !isSelected}
+            handleConfirm={openSaved}
+            onClose={onClose}
+        >
             {savedEntries.length === 0 ? (
                 <div className={styles.empty}>
                     <p>No saved entries found.</p>
@@ -146,21 +152,6 @@ function SavedEntries({ onClose }: { onClose?: () => void }) {
                     ))}
                 </div>
             )}
-            <div className={styles.footer}>
-                <button
-                    className={`${styles.btn} ${styles.openBtn}`}
-                    disabled={savedEntries.length === 0 || !isSelected}
-                    onClick={openSaved}
-                >
-                    Open
-                </button>
-                <button
-                    className={`${styles.btn} ${styles.closeBtn}`}
-                    onClick={onClose}
-                >
-                    Close
-                </button>
-            </div>
-        </div>
+        </ModalWrapper>
     );
 }
