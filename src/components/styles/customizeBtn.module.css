@@ -1,0 +1,62 @@
+.customizeClrs {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-self: flex-start;
+}
+.customizeClrs h3 {
+    font-size: 18px;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+.displayClrs {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+}
+.clrs {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+.clrsNbr {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    text-wrap: nowrap;
+}
+/* .clrsNbr p {
+} */
+.inputNbr {
+    outline: none;
+    width: 40px;
+    padding: 5px 0px 5px 5px;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    font-size: 15px;
+}
+.clrPicker {
+    display: inline-block;
+    position: relative;
+}
+.clrPicker button {
+    width: 35px;
+    height: 35px;
+    font-size: 18px;
+    border-radius: 100%;
+    border: 1px solid var(--color-border);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.clrPicker input {
+    visibility: hidden;
+    width: 1px;
+    height: 1px;
+    position: absolute;
+    bottom: 5px;
+    left: 0;
+}
