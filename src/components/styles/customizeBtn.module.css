@@ -1,19 +1,62 @@
-.customizeClrs {
+.section {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 15px;
     align-self: flex-start;
 }
-.customizeClrs h3 {
+.section h3 {
     font-size: 18px;
     font-weight: 600;
     text-transform: capitalize;
 }
-.displayClrs {
+.subSection {
     display: flex;
     gap: 40px;
     align-items: flex-start;
 }
+.themes {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+.theme {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    width: 118px;
+    overflow: hidden;
+    padding-block: 5px;
+    border: 2px solid transparent;
+    cursor: pointer;
+}
+.theme div {
+    height: 35px;
+    width: 75px;
+    display: flex;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+}
+.theme p {
+    font-size: 14px;
+    font-weight: 600;
+}
+.btn {
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition-duration: 300ms;
+    background-color: var(--color-violet);
+    color: white;
+}
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
 .clrs {
     display: flex;
     justify-content: flex-start;
@@ -27,8 +70,6 @@
     align-items: center;
     text-wrap: nowrap;
 }
-/* .clrsNbr p {
-} */
 .inputNbr {
     outline: none;
     width: 40px;

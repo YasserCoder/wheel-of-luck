@@ -5,10 +5,12 @@ import Modal from "./Modal";
 import MenuItem from "./MenuItem";
 import ModalWrapper from "./ModalWrapper";
 import { useEntries } from "../context/entriesContext";
+import { useOutsideClick } from "../hook/useOutsideClick";
 import { getRandomColor } from "../utils/helpers";
 
 import { MdOutlineColorLens } from "react-icons/md";
 import styles from "./styles/customizeBtn.module.css";
+import themes from "../data/colors.json";
 
 export default function CustomizeBtn() {
     return (
@@ -65,9 +67,10 @@ function Settings({ onClose }: { onClose?: () => void }) {
             handleConfirm={saveChanges}
             onClose={onClose}
         >
-            <div className={styles.customizeClrs}>
+            <Themes setClrs={setClrs} setClrsNbr={setClrsNbr} />
+            <div className={styles.section}>
                 <h3>customize colors </h3>
-                <div className={styles.displayClrs}>
+                <div className={styles.subSection}>
                     <div className={styles.clrsNbr}>
                         <p>number of colors :</p>
                         <input
@@ -86,7 +89,6 @@ function Settings({ onClose }: { onClose?: () => void }) {
                                 index={i}
                                 clrs={clrs}
                                 setClrs={setClrs}
-                                initialColor={clrs[i] || getRandomColor()}
                             />
                         ))}
                     </div>
@@ -96,20 +98,91 @@ function Settings({ onClose }: { onClose?: () => void }) {
     );
 }
 
+type ThemesProps = {
+    setClrsNbr: (val: number) => void;
+    setClrs: (color: string[]) => void;
+};
+
+function Themes({ setClrs, setClrsNbr }: ThemesProps) {
+    const [selectedTheme, setSelectedTheme] = useState("");
+    const ref = useOutsideClick(() => setSelectedTheme(""));
+
+    function applyChanges() {
+        const newTheme = themes[
+            selectedTheme as keyof typeof themes
+        ] as string[];
+        setClrs(newTheme);
+        setClrsNbr(newTheme.length);
+        setSelectedTheme("");
+    }
+    return (
+        <div className={styles.section}>
+            <h3>themes</h3>
+            <div className={styles.subSection}>
+                <p style={{ textWrap: "nowrap" }}>select a theme :</p>
+                <div className={styles.themes}>
+                    {Object.keys(themes).map((key, i) => (
+                        <div
+                            key={i}
+                            ref={ref}
+                            className={styles.theme}
+                            style={
+                                selectedTheme === key
+                                    ? {
+                                          borderColor: "var(--color-violet)",
+                                      }
+                                    : {}
+                            }
+                            onClick={() => {
+                                setSelectedTheme(key);
+                            }}
+                        >
+                            <div className="">
+                                {(
+                                    themes[
+                                        key as keyof typeof themes
+                                    ] as string[]
+                                ).map(
+                                    (clr: string, j: number, arr: string[]) => (
+                                        <span
+                                            key={j}
+                                            style={{
+                                                backgroundColor: clr,
+                                                height: "100%",
+                                                width: `${100 / arr.length}%`,
+                                            }}
+                                        ></span>
+                                    )
+                                )}
+                            </div>
+                            <p>{key}</p>
+                        </div>
+                    ))}
+                    <button
+                        disabled={!selectedTheme}
+                        className={styles.btn}
+                        onClick={applyChanges}
+                    >
+                        Apply
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+}
+
 type CPProps = {
-    initialColor: string;
     index: number;
     clrs: string[];
     setClrs: (color: string[]) => void;
 };
 
-function ColorPicker({ initialColor, clrs, setClrs, index }: CPProps) {
-    const [color, setColor] = useState(initialColor);
+function ColorPicker({ clrs, setClrs, index }: CPProps) {
+    const color = clrs[index] || getRandomColor();
     const inputRef = useRef<HTMLInputElement>(null);
 
     const handleColorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newColor = e.target.value;
-        setColor(newColor);
         const newArr = clrs.map((clr, i) => (i === index ? newColor : clr));
         setClrs(newArr);
     };
@@ -119,9 +192,9 @@ function ColorPicker({ initialColor, clrs, setClrs, index }: CPProps) {
     };
     useEffect(() => {
         if (index >= clrs.length) {
-            setClrs([...clrs, initialColor]);
+            setClrs([...clrs, color]);
         }
-    }, [clrs, setClrs, initialColor, index]);
+    }, [clrs, setClrs, color, index]);
 
     return (
         <div className={styles.clrPicker}>
