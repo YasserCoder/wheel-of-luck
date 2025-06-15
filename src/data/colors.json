@@ -1,10 +1,116 @@
-[
-    ["red", "black", "#900C3F", "#581845"],
-    ["#FFC300", "#FF5733", "#C70039", "#900C3F"],
-    ["#DAF7A6", "#FFC300", "#FF5733", "#C70039"],
-    ["#581845", "#DAF7A6", "#FFC300", "#FF5733"],
-    ["#900C3F", "#581845", "#DAF7A6", "#FFC300"],
-    ["#C70039", "#900C3F", "#581845", "#DAF7A6"],
-    ["#FF5733", "#C70039", "#900C3F", "#581845"],
-    ["#FFC300", "#FF5733", "#C70039", "#900C3F"]
-]
+{
+    "Default": ["#FF0000", "#00FF00", "#0000FF"],
+    "Secondary Colors": ["#FFFF00", "#FF00FF", "#00FFFF"],
+    "Pastel Colors": [
+        "#FFB3BA",
+        "#FFDFBA",
+        "#FFFFBA",
+        "#BAFFC9",
+        "#BAE1FF",
+        "#DAD0FF",
+        "#FFE0F0",
+        "#F0F8FF",
+        "#FFF5E1"
+    ],
+    "ISW Palestine": ["#000000", "#FFFFFF", "#FF0000", "#008000"],
+    "Neon Colors": [
+        "#FF6EC7",
+        "#39FF14",
+        "#00FFFF",
+        "#FE019A",
+        "#FF073A",
+        "#7FFF00",
+        "#E0FFFF",
+        "#DFFF00"
+    ],
+    "Warm Colors": [
+        "#FF5733",
+        "#FF8D1A",
+        "#FFC300",
+        "#FF6F61",
+        "#D1495B",
+        "#ED6A5A",
+        "#FFA07A",
+        "#FFD580"
+    ],
+    "Cool Colors": [
+        "#0096FF",
+        "#00CED1",
+        "#20B2AA",
+        "#87CEFA",
+        "#4682B4",
+        "#5F9EA0",
+        "#708090",
+        "#B0C4DE"
+    ],
+    "Earth Tones": [
+        "#A0522D",
+        "#CD853F",
+        "#D2B48C",
+        "#DEB887",
+        "#F5DEB3",
+        "#BC8F8F",
+        "#8B4513",
+        "#C19A6B"
+    ],
+    "Skin Tones": [
+        "#FFDFC4",
+        "#F0D5BE",
+        "#E1B899",
+        "#D1A17A",
+        "#B97C56",
+        "#A87542",
+        "#8D5524"
+    ],
+    "Vintage Colors": [
+        "#C9ADA1",
+        "#9A8C98",
+        "#4A4E69",
+        "#22223B",
+        "#F2E9E4",
+        "#E0B1CB"
+    ],
+    "Tropical Colors": [
+        "#FF6F61",
+        "#6B4226",
+        "#00917C",
+        "#FCE77D",
+        "#FFBC42",
+        "#58A4B0"
+    ],
+    "Cyberpunk Colors": [
+        "#FF00FF",
+        "#00FFFF",
+        "#FF007F",
+        "#00FF9F",
+        "#8A2BE2",
+        "#FF1493",
+        "#00BFFF"
+    ],
+    "Forest Colors": [
+        "#2E8B57",
+        "#006400",
+        "#228B22",
+        "#556B2F",
+        "#8FBC8F",
+        "#A9BA9D"
+    ],
+    "Ocean Colors": [
+        "#001F3F",
+        "#0074D9",
+        "#7FDBFF",
+        "#39CCCC",
+        "#3AB0FF",
+        "#0F52BA",
+        "#5F9EA0"
+    ],
+    "Sunset Colors": [
+        "#FF4500",
+        "#FF6347",
+        "#FF7F50",
+        "#FFA07A",
+        "#FFDAB9",
+        "#FFE4B5",
+        "#FFF8DC"
+    ]
+}

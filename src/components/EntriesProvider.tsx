@@ -49,7 +49,7 @@ export const EntriesProvider = ({
 }) => {
     const [storedEntries, setStoredEntries] =
         useLocalStorageState<EntriesState>(
-            { entries: entries[0], colors: colors[0] },
+            { entries: entries[0], colors: colors.Default },
             "configEntries"
         );
     const [state, dispatchBase] = useReducer(entriesReducer, storedEntries);

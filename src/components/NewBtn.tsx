@@ -9,7 +9,7 @@ export default function NewBtn() {
     function handleNewClick() {
         const newState = {
             entries: entries[0],
-            colors: colors[0],
+            colors: colors.Default,
         };
         dispatch({ type: "config/set", payload: newState });
     }
