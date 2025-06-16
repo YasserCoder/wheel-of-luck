@@ -68,7 +68,7 @@ function Settings({ onClose }: { onClose?: () => void }) {
             onClose={onClose}
         >
             <Themes setClrs={setClrs} setClrsNbr={setClrsNbr} />
-            <div className={styles.section}>
+            <div style={{ paddingBottom: "10px" }} className={styles.section}>
                 <h3>customize colors </h3>
                 <div className={styles.subSection}>
                     <div className={styles.clrsNbr}>
@@ -116,7 +116,7 @@ function Themes({ setClrs, setClrsNbr }: ThemesProps) {
         setSelectedTheme("");
     }
     return (
-        <div className={styles.section}>
+        <div style={{ paddingTop: "10px" }} className={styles.section}>
             <h3>themes</h3>
             <div className={styles.subSection}>
                 <p style={{ textWrap: "nowrap" }}>select a theme :</p>
@@ -158,15 +158,15 @@ function Themes({ setClrs, setClrsNbr }: ThemesProps) {
                             <p>{key}</p>
                         </div>
                     ))}
-                    <button
-                        disabled={!selectedTheme}
-                        className={styles.btn}
-                        onClick={applyChanges}
-                    >
-                        Apply
-                    </button>
                 </div>
             </div>
+            <button
+                disabled={!selectedTheme}
+                className={styles.btn}
+                onClick={applyChanges}
+            >
+                Apply
+            </button>
         </div>
     );
 }

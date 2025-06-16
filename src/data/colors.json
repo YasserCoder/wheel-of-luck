@@ -1,17 +1,6 @@
 {
-    "Default": ["#FF0000", "#00FF00", "#0000FF"],
-    "Secondary Colors": ["#FFFF00", "#FF00FF", "#00FFFF"],
-    "Pastel Colors": [
-        "#FFB3BA",
-        "#FFDFBA",
-        "#FFFFBA",
-        "#BAFFC9",
-        "#BAE1FF",
-        "#DAD0FF",
-        "#FFE0F0",
-        "#F0F8FF",
-        "#FFF5E1"
-    ],
+    "Default": ["#FF0000", "#00FF00", "#0000FF", "#FFFF00"],
+    "Secondary Colors": ["#EF6F1A", "#12D5A9", "#4D33A3", "#BC9C8F"],
     "ISW Palestine": ["#000000", "#FFFFFF", "#FF0000", "#008000"],
     "Neon Colors": [
         "#FF6EC7",
@@ -42,25 +31,6 @@
         "#5F9EA0",
         "#708090",
         "#B0C4DE"
-    ],
-    "Earth Tones": [
-        "#A0522D",
-        "#CD853F",
-        "#D2B48C",
-        "#DEB887",
-        "#F5DEB3",
-        "#BC8F8F",
-        "#8B4513",
-        "#C19A6B"
-    ],
-    "Skin Tones": [
-        "#FFDFC4",
-        "#F0D5BE",
-        "#E1B899",
-        "#D1A17A",
-        "#B97C56",
-        "#A87542",
-        "#8D5524"
     ],
     "Vintage Colors": [
         "#C9ADA1",
