@@ -28,10 +28,23 @@
     opacity: 0;
     transition: opacity 0.2s ease-in-out;
     text-transform: capitalize;
+    z-index: 10;
 }
 .btn:hover .tooltip {
     opacity: 1;
 }
 .btn:disabled .tooltip {
     opacity: 0;
+}
+
+@media (max-width: 640px) {
+    .btn {
+        width: 35px;
+        height: 35px;
+        font-size: 1.5rem;
+    }
+    .tooltip {
+        font-size: 0.875rem;
+        padding: 0.25rem 0.5rem;
+    }
 }

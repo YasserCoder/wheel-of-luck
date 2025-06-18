@@ -18,3 +18,20 @@
     padding: 0;
     user-select: none;
 }
+
+@media (max-width: 640px) {
+    .img {
+        width: 50px;
+    }
+    .title {
+        font-size: 2.5rem;
+    }
+}
+@media (max-width: 400px) {
+    .img {
+        width: 35px;
+    }
+    .title {
+        font-size: 1.5rem;
+    }
+}

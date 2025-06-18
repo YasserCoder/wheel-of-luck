@@ -13,8 +13,10 @@ export default function Main() {
             <ToggleSwitch />
             <div className={`container ${styles.section}`}>
                 <ResultsProvider>
+                    <div className={styles.wheelContainer}>
+                        <Wheel />
+                    </div>
                     <IOSection />
-                    <Wheel />
                 </ResultsProvider>
             </div>
         </main>

@@ -35,7 +35,6 @@
     color: red;
     cursor: pointer;
     height: 20px;
-    order: 2;
 }
 .deleteBtn:hover {
     scale: 1.1;
@@ -50,4 +49,21 @@
     font-size: 15px;
     color: var(--color-border);
     white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+    .io {
+        padding-inline: 12px;
+        padding-block: 5px;
+        gap: 12px;
+    }
+    .ioText {
+        font-size: 14px;
+    }
+    .deleteBtn {
+        font-size: 18px;
+    }
+    .winTimes {
+        font-size: 13px;
+    }
 }

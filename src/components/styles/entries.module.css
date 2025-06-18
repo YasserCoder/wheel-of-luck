@@ -50,7 +50,7 @@
     cursor: pointer;
     background-color: var(--color-violet);
     color: white;
-    width: 42px;
+    min-width: 35px;
     height: 37px;
     display: flex;
     align-items: center;
@@ -76,4 +76,25 @@
     position: absolute;
     bottom: 3px;
     left: 10px;
+}
+
+@media (max-width: 600px) {
+    .addEntryInput {
+        font-size: 15px;
+    }
+    .addBtn {
+        font-size: 22px;
+        height: 22px;
+    }
+    .addEntryForm {
+        padding: 5px 12px;
+    }
+    .or {
+        font-size: 18px;
+    }
+    .addImgBtn {
+        min-width: 30px;
+        height: 32px;
+        font-size: 18px;
+    }
 }

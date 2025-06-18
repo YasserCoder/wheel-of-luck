@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { useEntries } from "../context/entriesContext";
 import { useOutsideClick } from "../hook/useOutsideClick";
@@ -12,7 +12,7 @@ export default function Wheel() {
         value: { entries, colors },
     } = useEntries();
 
-    const radius = 230;
+    const [radius, setRadius] = useState(230);
     const center = radius;
     const angle = 360 / entries.length;
 
@@ -21,6 +21,25 @@ export default function Wheel() {
         angle,
         setResultVisible
     );
+
+    useEffect(() => {
+        const updateRadius = () => {
+            const width = window.innerWidth;
+            if (width < 400) {
+                setRadius(100);
+            } else if (width < 500) {
+                setRadius(140);
+            } else if (width < 640) {
+                setRadius(180);
+            } else {
+                setRadius(230);
+            }
+        };
+
+        updateRadius();
+        window.addEventListener("resize", updateRadius);
+        return () => window.removeEventListener("resize", updateRadius);
+    }, []);
 
     return (
         <>

@@ -5,8 +5,7 @@
 .opBtn {
     background-color: var(--color-input);
     color: var(--color-boy);
-    padding-inline: 12px;
-    padding-block: 4px;
+    padding: 4px 12px;
     display: flex;
     align-items: center;
     gap: 7px;
@@ -17,4 +16,14 @@
 .opBtn:hover {
     background-color: var(--color-hover);
     transition-duration: 300ms;
+}
+
+@media (max-width: 600px) {
+    .operations {
+        gap: 7px;
+    }
+    .opBtn {
+        padding: 3px 8px;
+        font-size: 13px;
+    }
 }

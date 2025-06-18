@@ -67,3 +67,27 @@
     border-bottom: 1px solid var(--color-border);
     flex: 1;
 }
+
+@media (max-width: 1024px) {
+    .section {
+        margin-bottom: 1rem;
+    }
+}
+@media (max-width: 600px) {
+    .section {
+        width: 280px;
+        margin-bottom: 50px;
+    }
+    .eyeIcon {
+        font-size: 25px;
+    }
+    .tab {
+        padding-inline: 20px;
+        font-size: 16px;
+    }
+}
+@media (max-width: 380px) {
+    .section {
+        width: 100%;
+    }
+}

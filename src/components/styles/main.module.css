@@ -1,11 +1,26 @@
 .main {
-    height: 80vh;
     position: relative;
 }
 .section {
     height: 100%;
     display: flex;
-    flex-direction: row-reverse;
     justify-content: space-between;
+    gap: 80px;
     padding-top: 1rem;
+}
+.wheelContainer {
+    flex: 1;
+    display: flex;
+    justify-content: end;
+}
+
+@media (max-width: 1024px) {
+    .section {
+        flex-direction: column;
+        align-items: center;
+        gap: 50px;
+    }
+    .wheelContainer {
+        justify-content: center;
+    }
 }
