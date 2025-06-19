@@ -79,3 +79,18 @@
     text-overflow: ellipsis;
     font-size: 15px;
 }
+
+@media (max-width: 600px) {
+    .grid {
+        grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    }
+    .entryBox {
+        padding: 6px 10px 8px 10px;
+    }
+    .entryTitle {
+        font-size: 1rem;
+    }
+    .entries {
+        font-size: 14px;
+    }
+}
