@@ -87,22 +87,20 @@
     gap: 10px;
     align-self: flex-end;
 }
-.removeBtn {
-    background-color: var(--color-violet);
-    color: white;
+.removeBtn,
+.closeBtn {
     padding: 6px 12px;
     border-radius: 8px;
     font-size: 16px;
     cursor: pointer;
     text-transform: capitalize;
 }
+.removeBtn {
+    background-color: var(--color-violet);
+    color: white;
+}
 .closeBtn {
     color: var(--color-border);
-    padding: 6px 12px;
-    border-radius: 8px;
-    font-size: 16px;
-    cursor: pointer;
-    text-transform: capitalize;
 }
 .closeBtn:hover {
     background-color: var(--color-hover);
@@ -123,10 +121,38 @@
     }
     .winnerContainer p {
         font-size: 20px;
-        max-width: 200px;
+        max-width: 240px;
     }
     .winnerContainer img {
         max-width: 200px;
         max-height: 150px;
+    }
+}
+
+@media (max-width: 400px) {
+    .arrow {
+        right: -11px;
+        border-top: 15px solid transparent;
+        border-bottom: 15px solid transparent;
+        border-right: 20px solid var(--color-violet);
+    }
+    .dialog {
+        width: 90%;
+    }
+    .dialog h2 {
+        font-size: 18px;
+    }
+    .winnerContainer p {
+        font-size: 18px;
+        max-width: 200px;
+    }
+    .winnerContainer img {
+        max-width: 180px;
+        max-height: 130px;
+    }
+    .removeBtn,
+    .closeBtn {
+        font-size: 14px;
+        padding: 4px 10px;
     }
 }

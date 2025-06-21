@@ -6,6 +6,8 @@ import { useSpin } from "../hook/useSpin";
 
 import styles from "./styles/Wheel.module.css";
 import Swal from "sweetalert2";
+import { getSliceSizes } from "../utils/helpers";
+import { useScreenSize } from "../hook/useScreenSize";
 
 export default function Wheel() {
     const {
@@ -121,29 +123,11 @@ function Slice({
     const contentX = center + (radius / 1.7) * Math.cos(midAngle);
     const contentY = center + (radius / 1.7) * Math.sin(midAngle);
 
-    let maxTextLength = 20;
-    let imageHeight = 20;
-    let textSize = 14;
-
-    if (slices <= 2) {
-        imageHeight = 85;
-        textSize = 22;
-        maxTextLength = 18;
-    } else if (slices <= 10) {
-        imageHeight = 70;
-        textSize = 19;
-        maxTextLength = 17;
-    } else if (slices <= 20) {
-        imageHeight = 42;
-        textSize = 16;
-    } else if (slices <= 30) {
-        imageHeight = 30;
-        textSize = 14;
-    } else if (slices <= 40) {
-        imageHeight = 20;
-        textSize = 12;
-        maxTextLength = 22;
-    }
+    const screenWidth = useScreenSize();
+    const { imageHeight, textSize, maxTextLength } = getSliceSizes(
+        slices,
+        screenWidth
+    );
 
     return (
         <g>
