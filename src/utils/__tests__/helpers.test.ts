@@ -4,6 +4,7 @@ import {
     shuffleArray,
     convertToBase64,
     sortWinners,
+    getRandomColor,
 } from "../helpers";
 
 describe("sortArray", () => {
@@ -179,5 +180,19 @@ describe("sortWinners", () => {
         ];
         const sorted = sortWinners(arr);
         expect(sorted).toEqual(arr);
+    });
+});
+
+describe("get random color", () => {
+    it("should return a valid hex color", () => {
+        const color = getRandomColor();
+        expect(color).toMatch(/^#[0-9A-F]{6}$/i);
+    });
+    it("should return different colors on multiple calls", () => {
+        const colors = new Set();
+        for (let i = 0; i < 20; i++) {
+            colors.add(getRandomColor());
+        }
+        expect(colors.size).toBeGreaterThan(1);
     });
 });
