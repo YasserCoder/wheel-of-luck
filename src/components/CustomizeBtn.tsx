@@ -82,7 +82,7 @@ function Settings({ onClose }: { onClose?: () => void }) {
                             className={styles.inputNbr}
                         />
                     </div>
-                    <div className={styles.clrs}>
+                    <ul className={styles.clrs}>
                         {Array.from({ length: clrsNbr }).map((_, i) => (
                             <ColorPicker
                                 key={i}
@@ -91,7 +91,7 @@ function Settings({ onClose }: { onClose?: () => void }) {
                                 setClrs={setClrs}
                             />
                         ))}
-                    </div>
+                    </ul>
                 </div>
             </div>
         </ModalWrapper>
@@ -120,11 +120,12 @@ function Themes({ setClrs, setClrsNbr }: ThemesProps) {
             <h3>themes</h3>
             <div className={styles.subSection}>
                 <p style={{ textWrap: "nowrap" }}>select a theme :</p>
-                <div className={styles.themes}>
+                <div data-testid="themes" className={styles.themes}>
                     {Object.keys(themes).map((key, i) => (
                         <div
                             key={i}
                             ref={ref}
+                            data-testid={key}
                             className={styles.theme}
                             style={
                                 selectedTheme === key
@@ -197,7 +198,7 @@ function ColorPicker({ clrs, setClrs, index }: CPProps) {
     }, [clrs, setClrs, color, index]);
 
     return (
-        <div className={styles.clrPicker}>
+        <li className={styles.clrPicker}>
             <button
                 onClick={handleClick}
                 style={{ backgroundColor: color }}
@@ -207,10 +208,11 @@ function ColorPicker({ clrs, setClrs, index }: CPProps) {
             </button>
             <input
                 type="color"
+                data-testid="color-picker"
                 ref={inputRef}
                 value={color}
                 onChange={handleColorChange}
             />
-        </div>
+        </li>
     );
 }

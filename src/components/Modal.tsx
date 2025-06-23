@@ -71,7 +71,7 @@ function Window({
 
     return createPortal(
         <div className={styles.overlay}>
-            <div className={styles.modal} ref={ref} id="modal">
+            <div className={styles.modal} ref={ref} data-testid="modal">
                 <div className={styles.btnContainer}>
                     <button className={styles.closeBtn} onClick={close}>
                         <HiXMark />
