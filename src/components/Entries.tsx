@@ -115,6 +115,7 @@ export default function Entries() {
                         ) => setEntry(event.target.value)}
                     />
                     <button
+                        data-testid="add-btn"
                         disabled={entries.length >= MAX_ENTRIES}
                         type="submit"
                         className={`${styles.addBtn} ${
@@ -128,6 +129,7 @@ export default function Entries() {
                 <input
                     id="img-upload"
                     type="file"
+                    data-testid="img-upload"
                     accept="image/*"
                     onChange={addEntry}
                     disabled={entries.length >= MAX_ENTRIES}

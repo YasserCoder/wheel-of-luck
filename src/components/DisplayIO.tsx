@@ -33,7 +33,10 @@ export default function DisplayIO({
         <DisplayIOContext.Provider
             value={{ io, handleDelete, winTimes, color }}
         >
-            <li className={`${color ? styles.entries : ""} ${styles.io}`}>
+            <li
+                data-testid={`entry-${io}`}
+                className={`${color ? styles.entries : ""} ${styles.io}`}
+            >
                 {children}
             </li>
         </DisplayIOContext.Provider>
