@@ -27,7 +27,7 @@ export default function Results() {
                 <FaX />
                 <span>Clear the list</span>
             </OperationBtns>
-            <div className={styles.results}>
+            <ul className={styles.results}>
                 {results.map((result, i) => (
                     <DisplayIO
                         key={i}
@@ -40,7 +40,7 @@ export default function Results() {
                         <DisplayIO.DeleteBtn />
                     </DisplayIO>
                 ))}
-            </div>
+            </ul>
         </>
     );
 }
