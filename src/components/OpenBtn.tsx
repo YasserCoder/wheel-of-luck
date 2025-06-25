@@ -93,9 +93,10 @@ function SavedEntries({ onClose }: { onClose?: () => void }) {
                     <p>No saved entries found.</p>
                 </div>
             ) : (
-                <div className={styles.grid}>
+                <div data-testid="saved-entries" className={styles.grid}>
                     {savedEntries.map((entry, index) => (
                         <div
+                            data-testid={entry.title}
                             ref={ref}
                             key={index}
                             style={
