@@ -53,6 +53,7 @@ export default function Wheel() {
                     }}
                     className={styles.wheel}
                     onClick={spinWheel}
+                    data-testid="wheel"
                 >
                     <svg
                         ref={wheelRef}
