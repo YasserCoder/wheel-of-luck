@@ -4,7 +4,7 @@ import { useEntries } from "../context/entriesContext";
 import { useOutsideClick } from "../hook/useOutsideClick";
 import { useSpin } from "../hook/useSpin";
 
-import styles from "./styles/Wheel.module.css";
+import styles from "./styles/wheel.module.css";
 import Swal from "sweetalert2";
 import { getSliceSizes } from "../utils/helpers";
 import { useScreenSize } from "../hook/useScreenSize";
