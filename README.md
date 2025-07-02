@@ -4,8 +4,7 @@ A modern and customizable **Wheel of Luck** app inspired by [wheelofnames.com](h
 
 ## 📸 Live Demo
 
-A live version of the app is available here:  
-**👉 [Live Demo](https://wheel-of-luck.vercel.app)**
+A live version of the app is available here: **👉 [Live Demo](https://wheel-of-luck-beta.vercel.app)**
 
 ## ✨ Features
 
