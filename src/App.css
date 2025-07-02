@@ -91,3 +91,8 @@ body {
     font-family: "Lato", Arial, Helvetica, sans-serif;
     transition: background-color 300ms, color 300ms, border-color 300ms;
 }
+#root {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
